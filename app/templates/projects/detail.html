@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} — Case Study — FreelanceHub{% endblock %}
+{% block meta_description %}{{ project.description }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="overline reveal">
+      <a href="{{ url_for('projects.list_projects') }}" style="color:inherit">Projects</a> / Case Study
+    </div>
+    {% if project.category %}
+      <span class="badge badge-cyan reveal delay-1" style="margin:12px auto;display:block;width:fit-content">{{ project.category }}</span>
+    {% endif %}
+    <h1 class="reveal delay-2">{{ project.title }}</h1>
+    <p class="reveal delay-3" style="max-width:600px;margin:16px auto 0;font-size:1.05rem">{{ project.description }}</p>
+    <div class="reveal delay-4" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px">
+      {% if project.live_url %}
+        <a href="{{ project.live_url }}" class="btn btn-primary" target="_blank" rel="noopener">
+          <i class="fas fa-external-link-alt"></i> Live Demo
+        </a>
+      {% endif %}
+      {% if project.github_url %}
+        <a href="{{ project.github_url }}" class="btn btn-outline" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i> Source Code
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <!-- Project image -->
+    {% if project.image_url %}
+    <div class="reveal" style="border-radius:var(--radius-xl);overflow:hidden;margin-bottom:var(--space-2xl);border:1px solid var(--border);max-height:500px">
+      <img src="{{ project.image_url }}" alt="{{ project.title }}" style="width:100%;height:100%;object-fit:cover">
+    </div>
+    {% endif %}
+
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:var(--space-2xl);align-items:start">
+      <div>
+        {% if project.problem %}
+        <div class="card reveal" style="margin-bottom:24px;border-left:3px solid var(--danger)">
+          <h3 style="margin-bottom:12px;color:var(--danger)">
+            <i class="fas fa-exclamation-triangle" style="margin-right:8px"></i>The Problem
+          </h3>
+          <p style="line-height:1.85">{{ project.problem }}</p>
+        </div>
+        {% endif %}
+
+        {% if project.solution %}
+        <div class="card reveal delay-1" style="margin-bottom:24px;border-left:3px solid var(--success)">
+          <h3 style="margin-bottom:12px;color:var(--success)">
+            <i class="fas fa-lightbulb" style="margin-right:8px"></i>The Solution
+          </h3>
+          <p style="line-height:1.85">{{ project.solution }}</p>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="reveal delay-2">
+        <div class="card" style="position:sticky;top:90px">
+          <h4 style="margin-bottom:16px">Tech Stack</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px">
+            {% for tech in project.tech_list %}
+              <span class="badge badge-accent">{{ tech }}</span>
+            {% endfor %}
+          </div>
+          <div class="divider"></div>
+          <a href="{{ url_for('client.submit_request') }}" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:16px">
+            <i class="fas fa-rocket"></i> Build Something Similar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {% if related %}
+    <div style="margin-top:64px">
+      <h3 class="reveal" style="margin-bottom:24px">Related Projects</h3>
+      <div class="grid grid-3">
+        {% for p in related %}
+        <article class="project-card reveal delay-{{ loop.index }}">
+          <div class="project-card__image">
+            {% if p.image_url %}
+              <img src="{{ p.image_url }}" alt="{{ p.title }}" loading="lazy" />
+            {% else %}
+              <i class="fas fa-laptop-code" style="font-size:2.5rem;color:var(--text-muted)"></i>
+            {% endif %}
+          </div>
+          <div class="project-card__body">
+            <h3 class="project-card__title">{{ p.title }}</h3>
+            <p class="project-card__desc">{{ p.description }}</p>
+            <a href="{{ url_for('projects.project_detail', slug=p.slug) }}" class="btn btn-ghost btn-sm" style="margin-top:12px">
+              View <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

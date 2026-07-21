@@ -1,0 +1,65 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Manage Blog — Admin{% endblock %}
+{% block page_title %}Blog Posts{% endblock %}
+{% block breadcrumb %}Admin / Blog{% endblock %}
+
+{% block content %}
+<div class="admin-card">
+  <div class="admin-card__header">
+    <div class="admin-card__title">
+      <i class="fas fa-newspaper" style="color:var(--warning);margin-right:8px"></i>
+      Blog Posts ({{ posts | length }})
+    </div>
+    <a href="{{ url_for('blog.create_post') }}" class="btn btn-primary btn-sm">
+      <i class="fas fa-plus"></i> New Post
+    </a>
+  </div>
+  <div class="table-wrap admin-card__table">
+    <table>
+      <thead>
+        <tr><th>Title</th><th>Tags</th><th>Views</th><th>Status</th><th>Date</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>
+            <a href="{{ url_for('blog.post_detail', slug=post.slug) }}" target="_blank"
+               style="font-weight:500;color:var(--text-primary)">{{ post.title }}</a>
+          </td>
+          <td>
+            <div class="flex gap-sm" style="flex-wrap:wrap">
+              {% for tag in post.tag_list[:3] %}
+                <span class="badge badge-muted" style="font-size:0.7rem">{{ tag }}</span>
+              {% endfor %}
+            </div>
+          </td>
+          <td style="font-size:0.85rem">{{ post.views }}</td>
+          <td>
+            {% if post.is_published %}
+              <span class="badge badge-success">Published</span>
+            {% else %}
+              <span class="badge badge-muted">Draft</span>
+            {% endif %}
+          </td>
+          <td style="font-size:0.82rem;color:var(--text-muted)">
+            {{ post.created_at.strftime('%b %d, %Y') if post.created_at else '-' }}
+          </td>
+          <td>
+            <div class="flex gap-sm">
+              <a href="{{ url_for('blog.edit_post', post_id=post.id) }}" class="btn btn-ghost btn-sm">
+                <i class="fas fa-edit"></i>
+              </a>
+              <form method="POST" action="{{ url_for('blog.delete_post', post_id=post.id) }}" onsubmit="return confirm('Delete post?')" style="display:inline">
+                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center" style="padding:60px;color:var(--text-muted)">No blog posts yet. <a href="{{ url_for('blog.create_post') }}" style="color:var(--accent-light)">Create first post</a></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

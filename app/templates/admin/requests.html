@@ -1,0 +1,114 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Client Requests — Admin{% endblock %}
+{% block page_title %}Client Requests{% endblock %}
+{% block breadcrumb %}Admin / Requests{% endblock %}
+
+{% block content %}
+<div class="admin-card">
+  <div class="admin-card__header">
+    <div class="admin-card__title">
+      <i class="fas fa-clipboard-list" style="color:var(--accent-2);margin-right:8px"></i>
+      Project Requests ({{ requests | length }})
+    </div>
+  </div>
+  <div class="table-wrap admin-card__table">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Client</th>
+          <th>Project</th>
+          <th>Budget</th>
+          <th>Deadline</th>
+          <th>File</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for req in requests %}
+        <tr>
+          <td style="font-size:0.8rem;color:var(--text-muted)">{{ req.id }}</td>
+          <td>
+            <div style="font-weight:500;color:var(--text-primary)">{{ req.name or 'Anonymous' }}</div>
+            <div style="font-size:0.78rem;color:var(--text-muted)">{{ req.email or '' }}</div>
+          </td>
+          <td style="max-width:180px">
+            <div class="truncate" style="font-weight:500;color:var(--text-primary)">{{ req.title }}</div>
+            <div style="font-size:0.78rem;color:var(--text-muted)" class="truncate">{{ req.description[:80] }}...</div>
+          </td>
+          <td style="font-size:0.88rem">{{ req.budget or '-' }}</td>
+          <td style="font-size:0.82rem;color:var(--text-muted)">
+            {{ req.deadline.strftime('%b %d, %Y') if req.deadline else '-' }}
+          </td>
+          <td>
+            {% if req.file_name %}
+              <span class="badge badge-cyan" title="{{ req.file_name }}">
+                <i class="fas fa-paperclip" style="margin-right:4px"></i>File
+              </span>
+            {% else %}
+              <span style="color:var(--text-muted);font-size:0.82rem">-</span>
+            {% endif %}
+          </td>
+          <td>
+            {% set status_class = {'pending':'badge-warning','reviewed':'badge-cyan','accepted':'badge-success','rejected':'badge-danger','completed':'badge-accent'} %}
+            <select class="status-select"
+                    data-status-url="{{ url_for('admin.update_request_status', rid=req.id) }}"
+                    style="color:var(--{{ 'warning' if req.status == 'pending' else 'success' if req.status == 'accepted' else 'text-secondary' }})">
+              {% for status in ['pending', 'reviewed', 'accepted', 'rejected', 'completed'] %}
+                <option value="{{ status }}" {{ 'selected' if req.status == status }}>{{ status | title }}</option>
+              {% endfor %}
+            </select>
+          </td>
+          <td>
+            <button class="btn btn-ghost btn-sm" onclick="viewRequest({{ req.id }}, {{ req | tojson | e }})">
+              <i class="fas fa-eye"></i>
+            </button>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="8" class="text-center" style="padding:60px;color:var(--text-muted)">
+            <i class="fas fa-folder-open" style="font-size:2rem;display:block;margin-bottom:12px"></i>
+            No client requests yet
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- View Request Modal -->
+<div class="modal-overlay" id="viewReqModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal__header">
+      <div class="modal__title">Request Details</div>
+      <button class="modal__close" onclick="closeModal('viewReqModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="reqModalBody"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function viewRequest(id, data) {
+  const body = document.getElementById('reqModalBody');
+  body.innerHTML = `
+    <div style="display:grid;gap:16px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px">CLIENT</div><div style="font-weight:600">${data.name || 'Anonymous'}</div></div>
+        <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px">EMAIL</div><div><a href="mailto:${data.email}" style="color:var(--accent-light)">${data.email || '-'}</a></div></div>
+        <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px">BUDGET</div><div>${data.budget || '-'}</div></div>
+        <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:4px">DEADLINE</div><div>${data.deadline || '-'}</div></div>
+      </div>
+      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:8px">PROJECT TITLE</div><div style="font-weight:600;font-size:1.1rem">${data.title}</div></div>
+      <div><div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:8px">DESCRIPTION</div><div style="line-height:1.7;color:var(--text-secondary)">${data.description}</div></div>
+      ${data.file_name ? `<div style="padding:12px;background:var(--bg-card);border-radius:var(--radius-md);border:1px solid var(--border)"><i class="fas fa-paperclip" style="margin-right:8px;color:var(--accent-light)"></i>${data.file_name}</div>` : ''}
+    </div>
+  `;
+  openModal('viewReqModal');
+}
+</script>
+{% endblock %}

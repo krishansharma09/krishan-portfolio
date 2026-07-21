@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO -->
+  <title>{% block title %}Krishan</codes> — Python Developer & AI/ML Engineer{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Python Developer & AI/ML Engineer specializing in Flask, FastAPI, Machine Learning, REST APIs, and intelligent automation. Available for AI/ML projects.{% endblock %}" />
+  <meta name="keywords" content="Python developer, AI engineer, ML engineer, Flask, FastAPI, Machine Learning, REST API, PostgreSQL, Krishan Sharma" />
+  <meta name="author" content="Krishan Sharma" />
+  <meta property="og:title" content="{% block og_title %}Krishan</codes> — AI/ML Engineer{% endblock %}" />
+  <meta property="og:description" content="{% block og_desc %}Python Developer & AI/ML Engineer building intelligent systems{% endblock %}" />
+  <meta property="og:type" content="website" />
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/portfolio.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/krishan_redesign.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/home_refined.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/contact_premium.css') }}" />
+  {% block extra_css %}{% endblock %}
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Favicon (inline SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>" />
+  <style>
+    /* Hero particle canvas fills parent section */
+    #hero-particles { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+    /* Ensure hero section is relative for absolute canvas */
+    .hero { position:relative; }
+    /* Smooth theme transitions on key elements */
+    body, .navbar, .card, .kfooter, .cp-form-glass, .cp-card {
+      transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
+    }
+  </style>
+  <!-- Anti-FOUC: apply theme before first paint -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('fh_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</head>
+<body>
+
+<!-- ── Navbar ────────────────────────────────────────────────── -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container navbar__inner">
+    <a href="{{ url_for('main.index') }}" class="navbar__logo">Krishan&lt;/codes&gt;</a>
+
+    <div class="navbar__links">
+      <a href="{{ url_for('main.index') }}"          class="navbar__link">Home</a>
+      <a href="{{ url_for('main.about') }}"          class="navbar__link">About</a>
+      <a href="{{ url_for('services.list_services') }}" class="navbar__link">Services</a>
+      <a href="{{ url_for('projects.list_projects') }}" class="navbar__link">Projects</a>
+      <a href="{{ url_for('blog.list_posts') }}"     class="navbar__link">Insights</a>
+      <a href="{{ url_for('main.contact') }}"        class="navbar__link">Contact</a>
+    </div>
+
+    <div class="navbar__actions">
+      <!-- Admin dashboard bell (admin only, only visible when logged in) -->
+      {% if current_user.is_authenticated and current_user.is_admin %}
+      <a href="{{ url_for('admin.dashboard') }}" class="btn btn-ghost btn-sm notif-badge" title="Admin Panel">
+        <i class="fas fa-bell"></i>
+        <span class="notif-badge__count" id="notifBadge" style="display:none">0</span>
+      </a>
+      <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline btn-sm">
+        <i class="fas fa-gauge"></i> Admin
+      </a>
+      <a href="{{ url_for('auth.logout') }}" class="btn btn-ghost btn-sm">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+      {% endif %}
+
+      <!-- Theme toggle -->
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle dark/light mode">
+        <i class="fas fa-sun theme-icon"></i>
+      </button>
+
+      <!-- Hire Me CTA -->
+      <a href="{{ url_for('client.submit_request') }}" class="btn btn-primary btn-sm">
+        <i class="fas fa-rocket"></i> Hire Me
+      </a>
+
+      <!-- Hamburger (mobile) -->
+      <button class="navbar__hamburger" id="hamburger" aria-label="Open menu">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="navbar__mobile-menu" id="mobileMenu">
+  <button class="modal__close" id="menuClose" style="align-self:flex-end; margin-bottom:20px; width:42px; height:42px;">
+    <i class="fas fa-times"></i>
+  </button>
+  <a href="{{ url_for('main.index') }}"          class="navbar__link">Home</a>
+  <a href="{{ url_for('main.about') }}"          class="navbar__link">About</a>
+  <a href="{{ url_for('services.list_services') }}" class="navbar__link">Services</a>
+  <a href="{{ url_for('projects.list_projects') }}" class="navbar__link">Projects</a>
+  <a href="{{ url_for('blog.list_posts') }}"     class="navbar__link">Insights</a>
+  <a href="{{ url_for('main.contact') }}"        class="navbar__link">Contact</a>
+  <div class="flex gap-sm" style="margin-top: 24px; flex-wrap: wrap;">
+    <a href="{{ url_for('client.submit_request') }}" class="btn btn-primary">Hire Me</a>
+    {% if current_user.is_authenticated and current_user.is_admin %}
+      <a href="{{ url_for('auth.logout') }}" class="btn btn-outline">Logout</a>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ── Flash Messages ─────────────────────────────────────────── -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div style="position:fixed; top:80px; right:20px; z-index:9000; max-width:380px; display:flex; flex-direction:column; gap:8px;">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else category }}" data-auto-dismiss>
+          <i class="fas {{ 'fa-circle-check' if category == 'success' else 'fa-circle-info' }}"></i>
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<!-- ── Page Content ───────────────────────────────────────────── -->
+<main id="main-content">
+  {% block content %}{% endblock %}
+</main>
+
+<!-- ── Premium Footer ───────────────────────────────────────── -->
+<footer class="kfooter" id="footer">
+  <div class="container">
+    <div class="kfooter__body">
+
+      <!-- Brand Column -->
+      <div class="kfooter__brand-col">
+        <div class="kfooter__brand-name">Krishan Sharma</div>
+        <div class="kfooter__brand-role">Python Developer &nbsp;&bull;&nbsp; AI/ML Engineer</div>
+        <p class="kfooter__brand-desc">
+          Building intelligent systems, scalable backend applications,
+          and REST APIs. Open to AI/ML opportunities and collaborations.
+        </p>
+        <div class="kfooter__socials">
+          <a href="https://github.com/krishansharma09" target="_blank" rel="noopener"
+             class="kfooter__social" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/krishan-sharma-50a89635b" target="_blank" rel="noopener"
+             class="kfooter__social" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="mailto:krishansharma995060@gmail.com" class="kfooter__social" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <div class="kfooter__col-title">Quick Links</div>
+        <nav class="kfooter__nav">
+          <a href="{{ url_for('main.index') }}"             class="kfooter__nav-link">Home</a>
+          <a href="{{ url_for('main.about') }}"             class="kfooter__nav-link">About</a>
+          <a href="{{ url_for('projects.list_projects') }}" class="kfooter__nav-link">Projects</a>
+          <a href="{{ url_for('main.contact') }}"           class="kfooter__nav-link">Contact</a>
+        </nav>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <div class="kfooter__col-title">Contact</div>
+        <nav class="kfooter__nav">
+          <a href="mailto:krishansharma995060@gmail.com" class="kfooter__nav-link" style="font-size:0.8rem;">
+            <i class="fas fa-envelope" style="color:var(--accent);font-size:0.72rem;"></i>
+            krishansharma995060@gmail.com
+          </a>
+          <span class="kfooter__nav-link" style="cursor:default;">
+            <i class="fas fa-location-dot" style="color:var(--accent);font-size:0.72rem;"></i>
+            Jaipur, Rajasthan, India
+          </span>
+          <span class="kfooter__nav-link" style="cursor:default;color:var(--accent);">
+            <i class="fas fa-circle" style="font-size:0.4rem;vertical-align:middle;"></i>
+            Open to Opportunities
+          </span>
+        </nav>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="kfooter__bottom">
+      <span class="kfooter__copy">
+        &copy; {{ now.year if now else 2026 }} Krishan Sharma. All rights reserved.
+      </span>
+      <span class="kfooter__built">
+        Built with <i class="fas fa-heart kfooter__heart"></i> using Python &amp; Flask
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Krishan AI Chatbot Widget ─────────────────────────────── -->
+<div class="chat-widget">
+  <button class="chat-bubble" id="chatBubble" aria-label="Open Krishan AI chat">
+    <span class="chat-bubble__icon">✦</span>
+    <span class="chat-badge"></span>
+  </button>
+
+  <div class="chat-panel hidden" id="chatPanel" role="dialog" aria-label="Krishan AI">
+    <div class="chat-panel__header">
+      <div class="chat-panel__avatar">
+        <span style="font-size:1.1rem;">✦</span>
+      </div>
+      <div>
+        <div class="chat-panel__title">Nova AI</div>
+        <div class="chat-panel__subtitle">Your AI Portfolio Assistant</div>
+      </div>
+      <button class="chat-panel__close" id="chatClose" aria-label="Close chat">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-panel__quick-prompts" id="chatQuickPrompts">
+      <button class="chat-panel__prompt-btn">Tell me about yourself</button>
+      <button class="chat-panel__prompt-btn">Show featured project</button>
+      <button class="chat-panel__prompt-btn">What is your pricing?</button>
+      <button class="chat-panel__prompt-btn">How can I hire you?</button>
+      <button class="chat-panel__prompt-btn">Show GitHub</button>
+      <button class="chat-panel__prompt-btn">Show LinkedIn</button>
+      <button class="chat-panel__prompt-btn">Show Resume</button>
+      <button class="chat-panel__prompt-btn">Tell me about internship</button>
+      <button class="chat-panel__prompt-btn">Skills</button>
+      <button class="chat-panel__prompt-btn">Education</button>
+      <button class="chat-panel__prompt-btn">Contact</button>
+      <button class="chat-panel__prompt-btn">What services do you offer?</button>
+    </div>
+    <div class="chat-panel__input">
+      <input type="text" id="chatInput" placeholder="Ask anything about Krishan..." autocomplete="off" />
+      <button id="chatSend" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Scroll to Top ──────────────────────────────────────────── -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+  <i class="fas fa-chevron-up"></i>
+</button>
+
+<!-- Cursor Glow Orb -->
+<div id="cursor-glow"></div>
+
+<!-- Project Detail Modal -->
+<div id="projectModal" class="project-modal" role="dialog" aria-modal="true" aria-labelledby="pm-title">
+  <div class="project-modal__panel">
+    <button class="project-modal__close" id="pm-close" aria-label="Close modal">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <div class="project-modal__hero">
+      <div class="project-modal__hero-top">
+        <div class="project-modal__hero-icon">
+          <i id="pm-icon" class="fas fa-brain"></i>
+        </div>
+        <div class="project-modal__hero-meta">
+          <span class="project-modal__hero-category" id="pm-category">Category</span>
+          <h2 class="project-modal__hero-title" id="pm-title">Project Title</h2>
+        </div>
+      </div>
+      <p class="project-modal__hero-desc" id="pm-desc">Short description</p>
+      
+      <div class="project-modal__actions">
+        <a id="pm-live" href="#" target="_blank" rel="noopener" class="project-modal__btn-primary">
+          <i class="fas fa-external-link-alt"></i> Live Demo
+        </a>
+        <a id="pm-github" href="#" target="_blank" rel="noopener" class="project-modal__btn-secondary">
+          <i class="fab fa-github"></i> Source Code
+        </a>
+        <button id="pm-hire" class="project-modal__btn-primary">
+          <i class="fas fa-rocket"></i> Hire Me
+        </button>
+        <button id="pm-ai" class="project-modal__btn-secondary">
+          <i class="fas fa-comments"></i> Talk with AI
+        </button>
+      </div>
+    </div>
+    
+    <div class="project-modal__body">
+      <div class="project-modal__grid">
+        <div class="project-modal__main">
+          <div class="project-modal__section">
+            <h4 class="project-modal__section-title">Key Features</h4>
+            <div class="project-modal__features" id="pm-features">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+          
+          <div class="project-modal__section">
+            <h4 class="project-modal__section-title">System Architecture & Workflow</h4>
+            <div class="project-modal__terminal">
+              <div class="terminal-header">
+                <span class="terminal-dot terminal-dot--close"></span>
+                <span class="terminal-dot terminal-dot--min"></span>
+                <span class="terminal-dot terminal-dot--max"></span>
+                <span class="terminal-title">architecture.txt</span>
+              </div>
+              <pre class="terminal-body" id="pm-architecture"></pre>
+            </div>
+          </div>
+          
+          <div class="project-modal__section">
+            <h4 class="project-modal__section-title">Technical Challenges & Solutions</h4>
+            <div class="project-modal__features" id="pm-challenges">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-modal__sidebar">
+          <div class="project-modal__section">
+            <h4 class="project-modal__section-title">Project Details</h4>
+            <div class="project-modal__info-card">
+              <div class="project-modal__info-row">
+                <span class="project-modal__info-label">Status</span>
+                <span class="project-modal__info-value" id="pm-status">Completed</span>
+              </div>
+              <div class="project-modal__info-row">
+                <span class="project-modal__info-label">Duration</span>
+                <span class="project-modal__info-value" id="pm-duration">-</span>
+              </div>
+              <div class="project-modal__info-row">
+                <span class="project-modal__info-label">Deployment</span>
+                <span class="project-modal__info-value" id="pm-deployment">-</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="project-modal__section">
+            <h4 class="project-modal__section-title">Technologies Used</h4>
+            <div class="project-modal__tech-grid" id="pm-tech">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+          
+          <div class="project-modal__section">
+            <h4 class="project-modal__section-title">Primary Use Case</h4>
+            <div class="project-modal__info-card">
+              <p class="project-modal__info-value" id="pm-usecase" style="font-family: var(--font-body); font-size: 0.85rem; line-height: 1.6; color: var(--text-secondary); margin: 0;"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Krishan AI Portfolio Assistant Modal -->
+<div id="portfolioAIModal" class="portfolio-ai-modal" role="dialog" aria-modal="true" aria-labelledby="pai-title">
+  <div class="portfolio-ai__panel">
+    <div class="portfolio-ai__header">
+      <div class="portfolio-ai__avatar">
+        <span style="font-size:1.2rem;">✦</span>
+      </div>
+      <div>
+        <h3 class="portfolio-ai__title" id="pai-title">Nova AI</h3>
+        <span class="portfolio-ai__subtitle">Your AI Portfolio Assistant · Online</span>
+      </div>
+      <button class="portfolio-ai__close" id="pai-close" aria-label="Close chat">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="portfolio-ai__quick-prompts">
+      <button class="portfolio-ai__prompt-btn">Tell me about yourself</button>
+      <button class="portfolio-ai__prompt-btn">Show featured project</button>
+      <button class="portfolio-ai__prompt-btn">What is your pricing?</button>
+      <button class="portfolio-ai__prompt-btn">How can I hire you?</button>
+      <button class="portfolio-ai__prompt-btn">Show GitHub</button>
+      <button class="portfolio-ai__prompt-btn">Show LinkedIn</button>
+      <button class="portfolio-ai__prompt-btn">Show Resume</button>
+      <button class="portfolio-ai__prompt-btn">Tell me about internship</button>
+      <button class="portfolio-ai__prompt-btn">Skills</button>
+      <button class="portfolio-ai__prompt-btn">Education</button>
+      <button class="portfolio-ai__prompt-btn">Contact</button>
+      <button class="portfolio-ai__prompt-btn">What services do you offer?</button>
+    </div>
+    
+    <div class="portfolio-ai__messages" id="pai-messages">
+      <!-- AI greeting added dynamically by JS -->
+    </div>
+    
+    <div class="portfolio-ai__input-row">
+      <input type="text" id="pai-input" class="portfolio-ai__input" placeholder="Ask anything about Krishan..." aria-label="Chat input" autocomplete="off" />
+      <button id="pai-send" class="portfolio-ai__send" aria-label="Send message">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Image Lightbox Modal ────────────────────────────────────── -->
+<div id="imageLightbox" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Profile Photo View">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close photo view">
+      <i class="fas fa-times"></i>
+    </button>
+    <img id="lightboxImg" src="" alt="Profile Photo Enlarged" class="lightbox-img" />
+    <div class="lightbox-caption" id="lightboxCaption">Krishan Sharma</div>
+  </div>
+</div>
+
+<!-- ── Scripts ───────────────────────────────────────────────── -->
+<!-- EmailJS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init({ publicKey: '4VWITdTF8hHRuFi3s' });</script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+<script src="{{ url_for('static', filename='js/particles.js') }}"></script>
+<script src="{{ url_for('static', filename='js/portfolio.js') }}"></script>
+<script src="{{ url_for('static', filename='js/krishan_redesign.js') }}"></script>
+{% if current_user.is_authenticated and current_user.is_admin %}
+  <script src="{{ url_for('static', filename='js/notifications.js') }}"></script>
+{% endif %}
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

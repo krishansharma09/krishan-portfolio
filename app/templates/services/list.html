@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Services — FreelanceHub{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="overline reveal">What I Offer</div>
+    <h1 class="reveal delay-1">Professional <span class="gradient-text">Services</span></h1>
+    <p class="reveal delay-2" style="max-width:520px;margin:16px auto 0">
+      From idea to deployment — comprehensive development services tailored to your needs.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-3">
+      {% for service in services %}
+      <a href="{{ url_for('services.service_detail', slug=service.slug) }}" class="service-card reveal delay-{{ loop.index % 4 }}">
+        <div class="service-card__icon">
+          <i class="{{ service.icon }}"></i>
+        </div>
+        {% if service.is_featured %}
+          <span class="badge badge-accent" style="width:fit-content">Featured</span>
+        {% endif %}
+        <div class="service-card__title">{{ service.title }}</div>
+        <div class="service-card__desc">{{ service.description }}</div>
+        <div class="service-card__footer">
+          <span class="service-card__price">{{ service.price_range or 'Contact for pricing' }}</span>
+          <span class="service-card__arrow">Details <i class="fas fa-arrow-right"></i></span>
+        </div>
+      </a>
+      {% else %}
+      <div class="card text-center" style="grid-column:1/-1;padding:80px">
+        <i class="fas fa-tools" style="font-size:3rem;color:var(--text-muted);margin-bottom:20px"></i>
+        <h3>Services Coming Soon</h3>
+        <p style="margin:12px 0 24px">I'm updating my service offerings. Check back shortly!</p>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-primary">Contact Me Directly</a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- CTA -->
+    <div class="card card-glow text-center reveal" style="max-width:660px;margin:64px auto 0;padding:48px;border-color:var(--accent)">
+      <h3 style="margin-bottom:12px">Need a <span class="gradient-text">Custom Solution?</span></h3>
+      <p style="margin-bottom:24px">Don't see exactly what you need? Let's discuss your specific requirements.</p>
+      <a href="{{ url_for('client.submit_request') }}" class="btn btn-primary">
+        <i class="fas fa-rocket"></i> Start a Project
+      </a>
+    </div>
+  </div>
+</section>
+{% endblock %}

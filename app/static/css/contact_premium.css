@@ -1,0 +1,627 @@
+/* ============================================================
+   Contact Premium — Glassmorphism · Futuristic · Premium
+   Krishan Sharma Portfolio — Contact Page Redesign
+============================================================ */
+
+/* ── Contact Page Wrapper ─────────────────────────────────── */
+.cp-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+/* ── Animated Background ──────────────────────────────────── */
+.cp-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#cp-particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cp-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.06;
+  animation: cpBlobFloat 18s ease-in-out infinite;
+}
+
+.cp-bg-blob--1 {
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--accent), transparent);
+  top: -200px;
+  left: -200px;
+  animation-delay: 0s;
+}
+
+.cp-bg-blob--2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--accent-2), transparent);
+  bottom: -150px;
+  right: -150px;
+  animation-delay: -7s;
+}
+
+.cp-bg-blob--3 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--accent), transparent);
+  top: 50%;
+  left: 60%;
+  animation-delay: -12s;
+}
+
+@keyframes cpBlobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(40px, -40px) scale(1.05); }
+  66%       { transform: translate(-30px, 30px) scale(0.95); }
+}
+
+/* Mouse spotlight */
+.cp-spotlight {
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+  z-index: 1;
+  opacity: 0;
+}
+
+/* ── Hero Section ─────────────────────────────────────────── */
+.cp-hero {
+  position: relative;
+  z-index: 2;
+  padding: 120px 0 60px;
+  text-align: center;
+}
+
+.cp-hero__overline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: cpFadeUp 0.6s 0.1s ease forwards;
+}
+
+.cp-hero__overline::before,
+.cp-hero__overline::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+@keyframes cpFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Main Grid Layout ─────────────────────────────────────── */
+.cp-main {
+  position: relative;
+  z-index: 2;
+  padding: 0 0 100px;
+}
+
+.cp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .cp-grid { grid-template-columns: 1fr; gap: 48px; }
+}
+
+/* ── LEFT SIDE ────────────────────────────────────────────── */
+.cp-left {
+  opacity: 0;
+  animation: cpFadeUp 0.7s 0.2s ease forwards;
+}
+
+.cp-left__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.cp-left__subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  max-width: 400px;
+}
+
+/* ── Contact Cards ────────────────────────────────────────── */
+.cp-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cp-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: #FFFFFF;
+  border: 1px solid #D0E4F5;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.cp-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+}
+
+/* Card icon */
+.cp-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: #DDECF8;
+  border: 1px solid #B8D6F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: #1A5EA8;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.cp-card:hover .cp-card__icon {
+  background: #2B78C5;
+  color: #FFFFFF;
+  border-color: #2B78C5;
+}
+
+/* LinkedIn card override */
+.cp-card--linkedin .cp-card__icon {
+  background: rgba(10,102,194,0.12);
+  border-color: rgba(10,102,194,0.25);
+  color: #0a66c2;
+}
+.cp-card--linkedin:hover .cp-card__icon {
+  background: rgba(10,102,194,0.22);
+  box-shadow: 0 0 16px rgba(10,102,194,0.3);
+}
+
+/* GitHub card override */
+.cp-card--github .cp-card__icon {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.15);
+  color: var(--text-primary);
+}
+[data-theme="light"] .cp-card--github .cp-card__icon {
+  background: rgba(0,0,0,0.06);
+  border-color: rgba(0,0,0,0.12);
+  color: #24292e;
+}
+.cp-card--github:hover .cp-card__icon {
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 16px rgba(255,255,255,0.15);
+}
+
+.cp-card__info { flex: 1; min-width: 0; position: relative; z-index: 1; }
+
+.cp-card__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+}
+
+.cp-card__value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cp-card__action {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.cp-card:hover .cp-card__action { color: var(--accent); }
+
+/* Copied toast */
+.cp-copied-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--accent);
+  color: #000;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 10px 24px;
+  border-radius: var(--radius-full);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 9999;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.cp-copied-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── RIGHT SIDE — Contact Form ────────────────────────────── */
+.cp-right {
+  opacity: 0;
+  animation: cpFadeUp 0.7s 0.35s ease forwards;
+}
+
+.cp-form-glass {
+  background: #FFFFFF;
+  border: 1px solid #D0E4F5;
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.cp-form-glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient);
+}
+
+.cp-form-title {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+
+/* Form fields & Mandatory Spacing */
+.cp-field,
+.cp-form-glass .cp-field {
+  margin-bottom: 24px !important;
+  display: block !important;
+}
+
+.cp-label,
+.cp-form-glass .cp-label {
+  display: block !important;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-dim, #1D66B2);
+  margin-bottom: 10px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+}
+
+.cp-input,
+.cp-textarea,
+.cp-form-glass .cp-input,
+.cp-form-glass .cp-textarea {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background: #FFFFFF;
+  border: 1.5px solid #D0E4F5;
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  outline: none;
+  resize: none;
+}
+
+.cp-input::placeholder,
+.cp-textarea::placeholder { color: var(--text-muted); }
+
+.cp-input:focus,
+.cp-textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(43, 120, 197, 0.15);
+  background: #F8FCFF;
+}
+
+.cp-textarea { min-height: 140px; }
+
+/* Optional 2-column grid row fallback */
+.cp-field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (max-width: 640px) {
+  .cp-form-glass { padding: 28px 20px; }
+}
+
+/* ── Magnetic Send Button ─────────────────────────────────── */
+.cp-submit {
+  width: 100%;
+  padding: 16px 32px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: var(--gradient);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  margin-top: 8px;
+}
+
+.cp-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cp-submit:hover {
+  box-shadow: 0 0 36px var(--accent-glow), 0 8px 24px rgba(0,255,136,0.25);
+}
+
+.cp-submit:hover::before { opacity: 1; }
+.cp-submit:active { transform: scale(0.97); }
+.cp-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+
+/* Spinner */
+.cp-submit .cp-spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0,0,0,0.25);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: cpSpin 0.7s linear infinite;
+}
+
+.cp-submit.loading .cp-btn-label { display: none; }
+.cp-submit.loading .cp-spinner { display: block; }
+
+@keyframes cpSpin { to { transform: rotate(360deg); } }
+
+/* Success state */
+.cp-submit.success {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+}
+
+/* ── Coming Soon Cards (Projects page) ────────────────────── */
+.pj-coming-soon-section {
+  padding: 60px 0;
+  background: var(--bg-primary);
+}
+
+.pj-coming-soon-card {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  max-width: 760px;
+  margin: 0 auto;
+  background: var(--glass-bg, rgba(0,255,136,0.04));
+  border: 1px solid var(--glass-border, rgba(0,255,136,0.15));
+  border-radius: var(--radius-xl);
+  padding: 28px 36px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+}
+
+.pj-coming-soon-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+}
+
+.pj-cs-left { flex-shrink: 0; }
+
+.pj-cs-rocket {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  background: rgba(0,255,136,0.08);
+  border: 1px solid rgba(0,255,136,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--accent);
+  animation: cpRocketFloat 3s ease-in-out infinite;
+}
+
+@keyframes cpRocketFloat {
+  0%, 100% { transform: translateY(0) rotate(-10deg); }
+  50%       { transform: translateY(-8px) rotate(-10deg); }
+}
+
+.pj-cs-center { flex: 1; min-width: 0; }
+
+.pj-cs-title {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.pj-cs-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.pj-cs-typing {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent);
+  min-height: 1.2em;
+  display: flex;
+  align-items: center;
+}
+
+.pj-cs-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background: var(--accent);
+  margin-left: 2px;
+  animation: cpBlink 0.8s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes cpBlink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+.pj-cs-right { flex-shrink: 0; }
+
+.pj-cs-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pj-cs-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.3;
+  animation: cpDotPulse 1.6s ease-in-out infinite;
+}
+
+.pj-cs-dot:nth-child(1) { animation-delay: 0s; }
+.pj-cs-dot:nth-child(2) { animation-delay: 0.25s; }
+.pj-cs-dot:nth-child(3) { animation-delay: 0.5s; }
+
+@keyframes cpDotPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.4); }
+}
+
+@media (max-width: 600px) {
+  .pj-coming-soon-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 20px;
+    gap: 20px;
+  }
+  .pj-cs-dots { justify-content: center; }
+}
+
+/* ── Light mode overrides ─────────────────────────────────── */
+[data-theme="light"] .cp-card {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(8,145,178,0.2);
+}
+
+[data-theme="light"] .cp-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 20px rgba(8,145,178,0.15), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+[data-theme="light"] .cp-card__icon {
+  background: rgba(8,145,178,0.08);
+  border-color: rgba(8,145,178,0.2);
+  color: var(--accent);
+}
+
+[data-theme="light"] .cp-form-glass {
+  background: rgba(255,255,255,0.75);
+  border-color: rgba(8,145,178,0.2);
+}
+
+[data-theme="light"] .pj-coming-soon-card {
+  background: rgba(255,255,255,0.8);
+  border-color: rgba(8,145,178,0.2);
+}
+
+[data-theme="light"] .cp-bg-blob { opacity: 0.04; }
+
+[data-theme="light"] .cp-spotlight {
+  background: radial-gradient(circle, rgba(8,145,178,0.05) 0%, transparent 70%);
+}
+
+/* ── Scroll reveal ────────────────────────────────────────── */
+.cp-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.cp-reveal.visible { opacity: 1; transform: translateY(0); }
+.cp-reveal-delay-1 { transition-delay: 0.1s; }
+.cp-reveal-delay-2 { transition-delay: 0.2s; }
+.cp-reveal-delay-3 { transition-delay: 0.3s; }

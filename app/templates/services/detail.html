@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}{{ service.title }} — FreelanceHub{% endblock %}
+{% block meta_description %}{{ service.description }}{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <div class="overline reveal">
+      <a href="{{ url_for('services.list_services') }}" style="color:inherit">Services</a> / {{ service.title }}
+    </div>
+    <div class="reveal delay-1" style="width:72px;height:72px;border-radius:var(--radius-lg);background:var(--gradient);display:flex;align-items:center;justify-content:center;margin:20px auto;font-size:2rem;color:#fff;box-shadow:var(--shadow-accent)">
+      <i class="{{ service.icon }}"></i>
+    </div>
+    <h1 class="reveal delay-2">{{ service.title }}</h1>
+    {% if service.price_range %}
+      <div class="reveal delay-3" style="margin-top:16px">
+        <span class="badge badge-accent" data-price-usd="{{ service.price_range }}" style="font-size:0.95rem;padding:8px 20px">{{ service.price_range }}</span>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:2fr 1fr;gap:var(--space-2xl);align-items:start;">
+      <div>
+        <div class="card reveal">
+          <h2 style="margin-bottom:20px">About this Service</h2>
+          <p style="line-height:1.85;margin-bottom:16px">{{ service.description }}</p>
+          {% if service.long_description %}
+            <p style="line-height:1.85">{{ service.long_description }}</p>
+          {% endif %}
+        </div>
+      </div>
+      <div class="reveal delay-1">
+        <div class="card" style="border-color:var(--accent);position:sticky;top:90px">
+          <h4 style="margin-bottom:20px">Ready to get started?</h4>
+          {% if service.price_range %}
+            <div class="currency-widget" style="margin-bottom: 20px;">
+              <div class="currency-header">
+                <span class="currency-label">Pricing Currency</span>
+                <select class="currency-select" id="currencySelect" aria-label="Select pricing currency">
+                  <option value="USD">USD ($)</option>
+                  <option value="INR">INR (₹)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                </select>
+              </div>
+              <div class="price-badge">
+                <span style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px; font-family: var(--font-mono);">ESTIMATED COST</span>
+                <div class="price-display animate-fade-in" data-price-usd="{{ service.price_range }}">{{ service.price_range }}</div>
+              </div>
+            </div>
+          {% endif %}
+          {% if service.delivery_time %}
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;font-size:0.88rem;color:var(--text-secondary)">
+              <i class="fas fa-clock" style="color:var(--accent-2)"></i>
+              Delivery: {{ service.delivery_time }}
+            </div>
+          {% endif %}
+          <a href="{{ url_for('client.submit_request') }}" class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:12px">
+            <i class="fas fa-rocket"></i> Hire Me for This
+          </a>
+          <a href="{{ url_for('main.contact') }}" class="btn btn-outline" style="width:100%;justify-content:center;margin-bottom:12px">
+            <i class="fas fa-comment"></i> Ask a Question
+          </a>
+          <button class="btn btn-outline" data-open-ai="Tell me more about your {{ service.title }} service." style="width:100%;justify-content:center;border-color:rgba(0,255,136,0.3);color:var(--accent);">
+            <i class="fas fa-robot"></i> Talk with AI
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {% if other_services %}
+    <div style="margin-top:64px">
+      <h3 class="reveal" style="margin-bottom:24px">Other Services</h3>
+      <div class="grid grid-3">
+        {% for s in other_services %}
+        <a href="{{ url_for('services.service_detail', slug=s.slug) }}" class="service-card reveal delay-{{ loop.index }}">
+          <div class="service-card__icon"><i class="{{ s.icon }}"></i></div>
+          <div class="service-card__title">{{ s.title }}</div>
+          <div class="service-card__desc">{{ s.description[:120] }}...</div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

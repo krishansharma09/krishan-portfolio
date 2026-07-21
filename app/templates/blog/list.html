@@ -1,0 +1,602 @@
+{% extends "base.html" %}
+{% block title %}Insights & Experiments — Krishan Sharma{% endblock %}
+{% block meta_description %}Insights and experiments by Krishan Sharma — Python Developer & AI/ML Engineer. Sharing what I'm building, learning and exploring in AI, backend and automation.{% endblock %}
+
+{% block extra_css %}
+<style>
+/* ══════════════════════════════════════════════════════════
+   INSIGHTS PAGE — Premium Glassmorphism Layout
+══════════════════════════════════════════════════════════ */
+
+/* ── Hero ─────────────────────────────────────────────── */
+.ins-hero {
+  position: relative;
+  padding: 130px 0 70px;
+  text-align: center;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.ins-hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ins-hero__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.07;
+}
+
+.ins-hero__blob--1 {
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  left: -150px;
+  background: radial-gradient(circle, var(--accent), transparent);
+  animation: ins-blob-drift 20s ease-in-out infinite;
+}
+
+.ins-hero__blob--2 {
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  right: -100px;
+  background: radial-gradient(circle, var(--accent-2), transparent);
+  animation: ins-blob-drift 16s ease-in-out infinite reverse;
+}
+
+@keyframes ins-blob-drift {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%       { transform: translate(30px,-30px) scale(1.1); }
+}
+
+.ins-hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+[data-theme="light"] .ins-hero__grid {
+  background-image:
+    linear-gradient(rgba(8,145,178,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(8,145,178,0.05) 1px, transparent 1px);
+}
+
+.ins-hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+.ins-hero__overline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: ins-fade-up 0.6s 0.1s ease forwards;
+}
+
+.ins-hero__overline::before,
+.ins-hero__overline::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+@keyframes ins-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.ins-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: ins-fade-up 0.7s 0.2s ease forwards;
+}
+
+.ins-hero__subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.7;
+  opacity: 0;
+  animation: ins-fade-up 0.7s 0.35s ease forwards;
+}
+
+[data-theme="light"] .ins-hero__subtitle {
+  color: #374151;
+}
+
+/* ── Main Section ─────────────────────────────────────── */
+.ins-section {
+  padding: 20px 0 100px;
+  background: var(--bg-primary);
+  position: relative;
+}
+
+[data-theme="light"] .ins-section {
+  background: #f8fafc;
+}
+
+/* ── Cards Grid ───────────────────────────────────────── */
+.ins-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 64px;
+}
+
+@media (max-width: 900px) {
+  .ins-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 580px) {
+  .ins-grid { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* ── Insight Card ─────────────────────────────────────── */
+.ins-card {
+  background: var(--glass-bg, rgba(0,255,136,0.04));
+  border: 1px solid var(--glass-border, rgba(0,255,136,0.15));
+  border-radius: 24px;
+  padding: 36px 32px 32px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition:
+    transform 0.35s cubic-bezier(0.34,1.56,0.64,1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  /* Scroll reveal initial state */
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.ins-card.ins-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ins-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-glow), transparent);
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.ins-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(0,255,136,0.03) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.ins-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 1px rgba(0,255,136,0.15),
+    0 0 30px var(--accent-glow-sm),
+    0 20px 50px rgba(0,0,0,0.3);
+}
+
+.ins-card:hover::after { opacity: 1; }
+
+/* Spotlight glow on hover (mouse-follow via JS) */
+.ins-card__spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  background: radial-gradient(
+    320px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0,255,136,0.06) 0%,
+    transparent 70%
+  );
+}
+
+.ins-card:hover .ins-card__spotlight { opacity: 1; }
+
+/* ── Card number badge ────────────────────────────────── */
+.ins-card__num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Card icon ────────────────────────────────────────── */
+.ins-card__icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+/* Icon variants */
+.ins-card__icon--focus {
+  background: rgba(0,255,136,0.1);
+  border: 1px solid rgba(0,255,136,0.2);
+  color: var(--accent);
+  box-shadow: 0 0 20px rgba(0,255,136,0.12);
+}
+
+.ins-card__icon--learning {
+  background: rgba(0,229,255,0.1);
+  border: 1px solid rgba(0,229,255,0.2);
+  color: var(--accent-2);
+  box-shadow: 0 0 20px rgba(0,229,255,0.12);
+}
+
+.ins-card__icon--soon {
+  background: rgba(139,92,246,0.1);
+  border: 1px solid rgba(139,92,246,0.25);
+  color: #a78bfa;
+  box-shadow: 0 0 20px rgba(139,92,246,0.12);
+}
+
+.ins-card:hover .ins-card__icon {
+  transform: scale(1.1) rotate(-5deg);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* ── Card body ────────────────────────────────────────── */
+.ins-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+  transition: color 0.2s ease;
+}
+
+[data-theme="light"] .ins-card__title { color: #111827; }
+
+.ins-card__desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 28px;
+}
+
+[data-theme="light"] .ins-card__desc { color: #374151; }
+
+/* ── Card button ──────────────────────────────────────── */
+.ins-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: rgba(0,255,136,0.05);
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  transition: all 0.25s ease;
+  align-self: flex-start;
+}
+
+.ins-card__btn:hover {
+  background: var(--accent);
+  color: #050508;
+  box-shadow: 0 0 16px var(--accent-glow);
+  transform: translateX(3px);
+  text-shadow: none;
+}
+
+/* Variants */
+.ins-card__btn--cyan {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+  background: rgba(0,229,255,0.05);
+}
+.ins-card__btn--cyan:hover {
+  background: var(--accent-2);
+  color: #050508;
+  box-shadow: 0 0 16px rgba(0,229,255,0.3);
+}
+
+.ins-card__btn--purple {
+  border-color: #a78bfa;
+  color: #a78bfa;
+  background: rgba(139,92,246,0.05);
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+.ins-card__btn--purple:hover {
+  background: rgba(139,92,246,0.1);
+  color: #a78bfa;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ── Bottom text ──────────────────────────────────────── */
+.ins-bottom {
+  text-align: center;
+  padding-top: 12px;
+}
+
+.ins-bottom__text {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.ins-bottom__dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: ins-dot-pulse 1.8s ease-in-out infinite;
+  box-shadow: 0 0 6px var(--accent);
+}
+
+@keyframes ins-dot-pulse {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.5); }
+}
+
+[data-theme="light"] .ins-bottom__text { color: #6b7280; }
+[data-theme="light"] .ins-bottom__dot  { background: #0891b2; box-shadow: 0 0 6px rgba(8,145,178,0.4); }
+
+/* ── Light mode card overrides ────────────────────────── */
+[data-theme="light"] .ins-card {
+  background: rgba(255,255,255,0.88);
+  border-color: rgba(0,0,0,0.08);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+}
+
+[data-theme="light"] .ins-card:hover {
+  border-color: #0891b2;
+  box-shadow:
+    0 0 0 1px rgba(8,145,178,0.15),
+    0 0 24px rgba(8,145,178,0.1),
+    0 16px 40px rgba(0,0,0,0.08);
+}
+
+[data-theme="light"] .ins-card::before {
+  background: linear-gradient(90deg, transparent, rgba(8,145,178,0.2), transparent);
+}
+
+[data-theme="light"] .ins-card__num { color: #0891b2; }
+
+[data-theme="light"] .ins-card__icon--focus {
+  background: rgba(8,145,178,0.08);
+  border-color: rgba(8,145,178,0.2);
+  color: #0891b2;
+  box-shadow: none;
+}
+
+[data-theme="light"] .ins-card__icon--learning {
+  background: rgba(124,58,237,0.07);
+  border-color: rgba(124,58,237,0.18);
+  color: #7c3aed;
+  box-shadow: none;
+}
+
+[data-theme="light"] .ins-card__icon--soon {
+  background: rgba(139,92,246,0.07);
+  border-color: rgba(139,92,246,0.18);
+  color: #7c3aed;
+  box-shadow: none;
+}
+
+[data-theme="light"] .ins-card__btn {
+  border-color: #0891b2;
+  color: #0891b2;
+  background: rgba(8,145,178,0.05);
+}
+[data-theme="light"] .ins-card__btn:hover {
+  background: #0891b2;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(8,145,178,0.25);
+}
+
+[data-theme="light"] .ins-card__btn--cyan {
+  border-color: #7c3aed;
+  color: #7c3aed;
+  background: rgba(124,58,237,0.05);
+}
+[data-theme="light"] .ins-card__btn--cyan:hover {
+  background: #7c3aed;
+  color: #fff;
+  box-shadow: 0 0 16px rgba(124,58,237,0.25);
+}
+
+[data-theme="light"] .ins-card__btn--purple {
+  border-color: #a78bfa;
+  color: #7c3aed;
+}
+
+[data-theme="light"] .ins-hero__blob--1 { opacity: 0.05; }
+[data-theme="light"] .ins-hero__blob--2 { opacity: 0.05; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="ins-hero" id="insights-hero">
+  <div class="ins-hero__bg" aria-hidden="true">
+    <div class="ins-hero__grid"></div>
+    <div class="ins-hero__blob ins-hero__blob--1"></div>
+    <div class="ins-hero__blob ins-hero__blob--2"></div>
+  </div>
+
+  <div class="container ins-hero__content">
+    <div class="ins-hero__overline">Insights &amp; Experiments</div>
+
+    <h1 class="ins-hero__title">
+      Insights &amp; <span class="gradient-text">Experiments</span>
+    </h1>
+
+    <p class="ins-hero__subtitle">
+      Sharing what I'm building, learning and exploring.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CARDS GRID
+══════════════════════════════════════════════════════════ -->
+<section class="ins-section" id="insights-cards">
+  <div class="container">
+    <div class="ins-grid">
+
+      <!-- ── 01 Current Focus ────────────────────────────── -->
+      <div class="ins-card" id="ins-card-1" style="transition-delay:0s">
+        <div class="ins-card__spotlight" aria-hidden="true"></div>
+        <div class="ins-card__num">01</div>
+        <div class="ins-card__icon ins-card__icon--focus" aria-hidden="true">
+          <i class="fas fa-crosshairs"></i>
+        </div>
+        <h2 class="ins-card__title">Current Focus</h2>
+        <p class="ins-card__desc">
+          Building AI applications, backend systems and automation solutions using Python.
+        </p>
+        <a href="{{ url_for('projects.list_projects') }}" class="ins-card__btn" id="ins-explore-btn">
+          Explore <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- ── 02 Learning Journey ─────────────────────────── -->
+      <div class="ins-card" id="ins-card-2" style="transition-delay:0.12s">
+        <div class="ins-card__spotlight" aria-hidden="true"></div>
+        <div class="ins-card__num">02</div>
+        <div class="ins-card__icon ins-card__icon--learning" aria-hidden="true">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h2 class="ins-card__title">Learning Journey</h2>
+        <p class="ins-card__desc">
+          Currently improving expertise in Machine Learning, LLMs, Cloud and scalable architecture.
+        </p>
+        <a href="{{ url_for('main.about') }}#skills" class="ins-card__btn ins-card__btn--cyan" id="ins-progress-btn">
+          View Progress <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <!-- ── 03 Coming Soon ──────────────────────────────── -->
+      <div class="ins-card" id="ins-card-3" style="transition-delay:0.24s">
+        <div class="ins-card__spotlight" aria-hidden="true"></div>
+        <div class="ins-card__num">03</div>
+        <div class="ins-card__icon ins-card__icon--soon" aria-hidden="true">
+          <i class="fas fa-pen-nib"></i>
+        </div>
+        <h2 class="ins-card__title">Coming Soon</h2>
+        <p class="ins-card__desc">
+          Technical articles and project breakdowns will be added soon.
+        </p>
+        <span class="ins-card__btn ins-card__btn--purple" id="ins-soon-btn" aria-disabled="true">
+          Coming Soon <i class="fas fa-clock"></i>
+        </span>
+      </div>
+
+    </div><!-- /ins-grid -->
+
+    <!-- Bottom text -->
+    <div class="ins-bottom">
+      <span class="ins-bottom__text">
+        <span class="ins-bottom__dot" aria-hidden="true"></span>
+        More content coming soon
+        <span class="ins-bottom__dot" aria-hidden="true"></span>
+      </span>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  /* ── Scroll reveal ────────────────────────────────────── */
+  const cards = document.querySelectorAll('.ins-card');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('ins-visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  cards.forEach(c => obs.observe(c));
+
+  /* ── Mouse spotlight per card ─────────────────────────── */
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,258 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Admin Dashboard — FreelanceHub{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block breadcrumb %}Admin / Overview{% endblock %}
+
+{% block content %}
+
+<!-- Stat Cards -->
+<div class="stat-cards">
+  <div class="stat-card">
+    <div class="stat-card__icon stat-card__icon--purple"><i class="fas fa-envelope"></i></div>
+    <div>
+      <div class="stat-card__value">{{ stats.messages }}</div>
+      <div class="stat-card__label">Total Messages</div>
+      <div class="stat-card__sub">
+        <span class="{{ 'up' if stats.unread_messages > 0 else '' }}">
+          {{ stats.unread_messages }} unread
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__icon stat-card__icon--red"><i class="fas fa-clipboard-list"></i></div>
+    <div>
+      <div class="stat-card__value">{{ stats.requests }}</div>
+      <div class="stat-card__label">Client Requests</div>
+      <div class="stat-card__sub">
+        <span class="{{ 'up' if stats.pending_requests > 0 else '' }}">
+          {{ stats.pending_requests }} pending
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__icon stat-card__icon--cyan"><i class="fas fa-laptop-code"></i></div>
+    <div>
+      <div class="stat-card__value">{{ stats.projects }}</div>
+      <div class="stat-card__label">Projects</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__icon stat-card__icon--green"><i class="fas fa-concierge-bell"></i></div>
+    <div>
+      <div class="stat-card__value">{{ stats.services }}</div>
+      <div class="stat-card__label">Services</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__icon stat-card__icon--orange"><i class="fas fa-newspaper"></i></div>
+    <div>
+      <div class="stat-card__value">{{ stats.blog_posts }}</div>
+      <div class="stat-card__label">Blog Posts</div>
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-card__icon stat-card__icon--purple"><i class="fas fa-users"></i></div>
+    <div>
+      <div class="stat-card__value">{{ stats.users }}</div>
+      <div class="stat-card__label">Users</div>
+    </div>
+  </div>
+</div>
+
+<!-- Activity Chart -->
+<div class="admin-card" style="margin-bottom:24px">
+  <div class="admin-card__header">
+    <div class="admin-card__title"><i class="fas fa-chart-line" style="margin-right:8px;color:var(--accent-light)"></i>Activity (Last 7 Days)</div>
+  </div>
+  <div class="admin-card__body">
+    <canvas id="activityChart" height="100"></canvas>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+
+  <!-- Recent Messages -->
+  <div class="admin-card">
+    <div class="admin-card__header">
+      <div class="admin-card__title"><i class="fas fa-envelope" style="margin-right:8px;color:var(--accent-light)"></i>Recent Messages</div>
+      <a href="{{ url_for('admin.manage_messages') }}" class="btn btn-ghost btn-sm">View All</a>
+    </div>
+    <div class="table-wrap admin-card__table">
+      <table>
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for msg in recent_messages %}
+          <tr>
+            <td>
+              <div style="font-weight:{{ '600' if not msg.is_read else '400' }};color:var(--text-primary)">{{ msg.name }}</div>
+              <div style="font-size:0.78rem;color:var(--text-muted)">{{ msg.email }}</div>
+            </td>
+            <td style="max-width:160px" class="truncate">{{ msg.subject or 'No Subject' }}</td>
+            <td style="font-size:0.78rem">{{ msg.created_at.strftime('%b %d') if msg.created_at else '' }}</td>
+            <td>
+              {% if not msg.is_read %}
+                <span class="badge badge-danger">Unread</span>
+              {% else %}
+                <span class="badge badge-muted">Read</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="4" class="text-center" style="padding:32px;color:var(--text-muted)">No messages yet</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Recent Requests -->
+  <div class="admin-card">
+    <div class="admin-card__header">
+      <div class="admin-card__title"><i class="fas fa-clipboard-list" style="margin-right:8px;color:var(--accent-2)"></i>Recent Requests</div>
+      <a href="{{ url_for('admin.manage_requests') }}" class="btn btn-ghost btn-sm">View All</a>
+    </div>
+    <div class="table-wrap admin-card__table">
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Project</th>
+            <th>Budget</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for req in recent_requests %}
+          <tr>
+            <td>
+              <div style="font-weight:500;color:var(--text-primary)">{{ req.name or 'Anonymous' }}</div>
+            </td>
+            <td style="max-width:160px" class="truncate">{{ req.title }}</td>
+            <td style="font-size:0.85rem">{{ req.budget or '-' }}</td>
+            <td>
+              {% set status_class = {'pending':'badge-warning','reviewed':'badge-cyan','accepted':'badge-success','rejected':'badge-danger','completed':'badge-accent'} %}
+              <span class="badge {{ status_class.get(req.status, 'badge-muted') }}">{{ req.status | title }}</span>
+            </td>
+          </tr>
+          {% else %}
+          <tr><td colspan="4" class="text-center" style="padding:32px;color:var(--text-muted)">No requests yet</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- Quick Actions -->
+<div class="admin-card" style="margin-top:24px">
+  <div class="admin-card__header">
+    <div class="admin-card__title">Quick Actions</div>
+  </div>
+  <div class="admin-card__body" style="display:flex;gap:12px;flex-wrap:wrap">
+    <a href="{{ url_for('blog.create_post') }}" class="btn btn-primary btn-sm">
+      <i class="fas fa-plus"></i> New Blog Post
+    </a>
+    <button class="btn btn-outline btn-sm" onclick="openModal('addServiceModal')">
+      <i class="fas fa-plus"></i> Add Service
+    </button>
+    <button class="btn btn-outline btn-sm" onclick="openModal('addProjectModal')">
+      <i class="fas fa-plus"></i> Add Project
+    </button>
+    <a href="{{ url_for('admin.manage_messages') }}" class="btn btn-ghost btn-sm">
+      <i class="fas fa-envelope"></i> View Messages
+      {% if stats.unread_messages > 0 %}
+        <span class="badge badge-danger" style="margin-left:4px">{{ stats.unread_messages }}</span>
+      {% endif %}
+    </a>
+  </div>
+</div>
+
+<!-- Add Service Modal (quick) -->
+<div class="modal-overlay" id="addServiceModal">
+  <div class="modal">
+    <div class="modal__header">
+      <div class="modal__title">Add New Service</div>
+      <button class="modal__close" onclick="closeModal('addServiceModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <form data-crud-form action="{{ url_for('admin.add_service') }}" method="POST">
+      <div class="form-group">
+        <label class="form-label">Title *</label>
+        <input type="text" class="form-control" name="title" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description *</label>
+        <textarea class="form-control" name="description" rows="3" required></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Icon (FontAwesome class)</label>
+          <input type="text" class="form-control" name="icon" value="fas fa-code" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Price Range</label>
+          <input type="text" class="form-control" name="price_range" placeholder="e.g. $500 - $2000" />
+        </div>
+      </div>
+      <div class="form-group flex gap-sm" style="align-items:center">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.9rem;color:var(--text-secondary)">
+          <input type="checkbox" name="is_featured" style="accent-color:var(--accent)" />
+          Featured service
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Service</button>
+    </form>
+  </div>
+</div>
+
+<!-- Add Project Modal (quick) -->
+<div class="modal-overlay" id="addProjectModal">
+  <div class="modal">
+    <div class="modal__header">
+      <div class="modal__title">Add New Project</div>
+      <button class="modal__close" onclick="closeModal('addProjectModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <form data-crud-form action="{{ url_for('admin.add_project') }}" method="POST">
+      <div class="form-group">
+        <label class="form-label">Title *</label>
+        <input type="text" class="form-control" name="title" required />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Description *</label>
+        <textarea class="form-control" name="description" rows="3" required></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tech Stack (comma-separated)</label>
+        <input type="text" class="form-control" name="tech_stack" placeholder="Python, Flask, React" />
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Live URL</label>
+          <input type="url" class="form-control" name="live_url" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">GitHub URL</label>
+          <input type="url" class="form-control" name="github_url" />
+        </div>
+      </div>
+      <div class="form-group flex gap-sm" style="align-items:center">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.9rem;color:var(--text-secondary)">
+          <input type="checkbox" name="is_featured" style="accent-color:var(--accent)" />
+          Featured project
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary">Save Project</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

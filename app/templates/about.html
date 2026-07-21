@@ -1,0 +1,599 @@
+{% extends "base.html" %}
+{% block title %}Krishan</codes> — About | Python Developer & AI/ML Engineer{% endblock %}
+{% block meta_description %}Learn about Krishan Sharma — Python Developer and AI/ML Engineer from Jaipur, India, with experience at Dotsquares Pvt. Ltd. and expertise in Flask, FastAPI, Machine Learning, LLM Integration and more.{% endblock %}
+
+{% block content %}
+
+<!-- ══════════════════════════════════════════════════════════════
+     ABOUT HERO — Profile + Bio
+══════════════════════════════════════════════════════════════ -->
+<section class="ks-about-hero" id="about-hero">
+  <!-- Animated Background -->
+  <div class="ks-about-hero__bg">
+    <div class="ks-about-hero__grid"></div>
+    <div class="ks-blob ks-blob--1"></div>
+    <div class="ks-blob ks-blob--2"></div>
+    <div class="ks-blob ks-blob--3"></div>
+    <div class="ks-scanline"></div>
+  </div>
+
+  <div class="container">
+    <div class="ks-about-hero__inner">
+
+      <!-- ── Left: Profile Card ────────────────────────────── -->
+      <div class="ks-reveal" id="profile-card-wrap">
+        <div class="ks-profile-card">
+          <!-- Avatar with rotating ring and custom profile photo -->
+          <div class="ks-avatar">
+            <img src="{{ url_for('static', filename='uploads/profile_photo.png') }}" alt="Krishan Sharma — AIML Developer" />
+          </div>
+
+          <div class="ks-name">Krishan Sharma</div>
+
+          <div class="ks-role-badge">
+            <span class="dot"></span>
+            AI/ML · Python · Backend
+          </div>
+
+          <!-- Info list -->
+          <div class="ks-info-list">
+            <div class="ks-info-item">
+              <i class="fas fa-location-dot"></i>
+              <span>Jaipur, Rajasthan, India</span>
+            </div>
+            <div class="ks-info-item">
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:krishansharma995060@gmail.com">krishansharma995060@gmail.com</a>
+            </div>
+            <div class="ks-info-item">
+              <i class="fas fa-graduation-cap"></i>
+              <span>MCA — JECRC University (Pursuing)</span>
+            </div>
+            <div class="ks-info-item">
+              <i class="fas fa-briefcase"></i>
+              <span>Python Intern · Dotsquares Pvt. Ltd.</span>
+            </div>
+          </div>
+
+          <!-- Open to work -->
+          <div class="ks-status-badge">
+            <span class="ks-status-dot"></span>
+            Open to AI/ML Opportunities
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- ── Right: Bio Panel ──────────────────────────────── -->
+      <div class="ks-bio-panel">
+        <div class="ks-bio-overline ks-reveal ks-delay-1" style="font-family:var(--font-mono);letter-spacing:0.12em;">// 01. ABOUT KRISHAN SHARMA</div>
+
+        <h1 class="ks-bio-heading ks-reveal ks-delay-1">
+          Building <span class="highlight">Intelligent Systems</span><br>
+          with Python &amp; AI
+        </h1>
+
+        <p class="ks-bio-subheading ks-reveal ks-delay-2">
+          Python Developer &nbsp;|&nbsp; AI/ML Engineer &nbsp;|&nbsp; Backend Developer
+        </p>
+
+        <p class="ks-bio-text ks-reveal ks-delay-2">
+          I specialize in developing scalable backend applications, AI-powered systems, REST APIs,
+          and intelligent automation solutions. With academic knowledge and practical industry experience,
+          I focus on creating efficient, user-centric and production-ready applications.
+        </p>
+
+        <p class="ks-bio-text ks-reveal ks-delay-3">
+          During my internship at <strong style="color:var(--accent);">Dotsquares Pvt. Ltd.</strong>,
+          I worked on real-world development practices and strengthened my expertise in backend engineering,
+          REST APIs, and software development workflows.
+        </p>
+
+        <p class="ks-bio-text ks-reveal ks-delay-3">
+          Currently pursuing <strong style="color:var(--accent-2);">MCA at JECRC University</strong>
+          while continuously improving skills in Artificial Intelligence, Machine Learning, Cloud,
+          and Full Stack Development.
+        </p>
+
+        <div class="ks-bio-ctas ks-reveal ks-delay-4">
+          <a href="{{ url_for('main.download_resume') }}" class="ks-resume-dl-btn" id="about-resume-btn">
+            <i class="fas fa-download"></i> Download Resume
+          </a>
+          <a href="{{ url_for('projects.list_projects') }}" class="ks-btn-outline" id="about-projects-btn">
+            <i class="fas fa-code-branch"></i> View Projects
+          </a>
+          <a href="{{ url_for('main.contact') }}" class="ks-btn-ghost" id="about-contact-btn">
+            <i class="fas fa-envelope"></i> Contact Me
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     ANIMATED STATS COUNTERS
+══════════════════════════════════════════════════════════════ -->
+<section class="ks-counters-section" id="about-stats">
+  <div class="container">
+    <div class="ks-counters-grid">
+
+      <div class="ks-counter-card ks-reveal">
+        <div class="ks-counter-icon"><i class="fas fa-calendar-days"></i></div>
+        <div class="ks-counter-num" data-target="3" data-suffix="+">0</div>
+        <div class="ks-counter-label">Years Learning</div>
+      </div>
+
+      <div class="ks-counter-card ks-reveal ks-delay-1">
+        <div class="ks-counter-icon"><i class="fas fa-code"></i></div>
+        <div class="ks-counter-num" data-target="10" data-suffix="+">0</div>
+        <div class="ks-counter-label">Projects Built</div>
+      </div>
+
+      <div class="ks-counter-card ks-reveal ks-delay-2">
+        <div class="ks-counter-icon"><i class="fas fa-building"></i></div>
+        <div class="ks-counter-num" data-target="7" data-suffix=" Months">0</div>
+        <div class="ks-counter-label">Internship</div>
+      </div>
+
+      <div class="ks-counter-card ks-reveal ks-delay-3">
+        <div class="ks-counter-icon"><i class="fas fa-layer-group"></i></div>
+        <div class="ks-counter-num" data-target="15" data-suffix="+">0</div>
+        <div class="ks-counter-label">Technologies</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     SKILLS SECTION — Interactive Glass Cards
+══════════════════════════════════════════════════════════════ -->
+<section class="ks-skills-section" id="skills">
+  <!-- Floating particles canvas -->
+  <canvas id="ks-skill-particles"></canvas>
+
+  <div class="container">
+    <!-- Section Header -->
+    <div class="ks-section-header ks-reveal" id="skills-header">
+      <div class="ks-section-overline">Expertise</div>
+      <h2 class="ks-section-title">
+        Tech Stack &amp; <span class="ks-gradient-text">Engineering Expertise</span>
+      </h2>
+      <p class="ks-section-desc">
+        A curated set of skills built through academic study, industry projects,
+        and continuous self-improvement in AI, backend, and cloud engineering.
+      </p>
+    </div>
+
+    <!-- Skill Category Tabs -->
+    <div class="ks-skill-tabs ks-reveal ks-delay-1" id="skill-tabs">
+      <button class="ks-skill-tab active" data-cat="all">All</button>
+      <button class="ks-skill-tab" data-cat="backend">Backend</button>
+      <button class="ks-skill-tab" data-cat="frontend">Frontend</button>
+      <button class="ks-skill-tab" data-cat="aiml">AI / ML</button>
+      <button class="ks-skill-tab" data-cat="cloud">Cloud</button>
+      <button class="ks-skill-tab" data-cat="tools">Tools</button>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="ks-skills-grid" id="skills-grid">
+
+      <!-- ── BACKEND ──────────────────────────────────────── -->
+      <div class="ks-skill-card ks-reveal" data-cat="backend" data-delay="0" id="skill-backend">
+        <div class="ks-skill-card__glow"></div>
+        <div class="ks-skill-card__header">
+          <div class="ks-skill-card__icon-wrap">
+            <i class="fas fa-server"></i>
+          </div>
+          <div>
+            <div class="ks-skill-card__title">Backend</div>
+            <div class="ks-skill-card__category">Server-Side Engineering</div>
+          </div>
+        </div>
+
+        <!-- Circular Progress Ring -->
+        <div class="ks-ring-container">
+          <svg class="ks-progress-ring" width="110" height="110" viewBox="0 0 110 110">
+            <circle class="ks-progress-ring__track" cx="55" cy="55" r="45"/>
+            <circle class="ks-progress-ring__fill" data-pct="90" cx="55" cy="55" r="45"/>
+          </svg>
+          <div class="ks-ring-center">
+            <div class="ks-ring-pct">90%</div>
+            <div class="ks-ring-level">Proficient</div>
+          </div>
+        </div>
+
+        <!-- Skill Tags -->
+        <div class="ks-skill-tags">
+          <span class="ks-skill-tag"><i class="fab fa-python"></i> Python</span>
+          <span class="ks-skill-tag"><i class="fas fa-flask"></i> Flask</span>
+          <span class="ks-skill-tag"><i class="fas fa-bolt"></i> FastAPI</span>
+          <span class="ks-skill-tag"><i class="fas fa-plug"></i> REST API</span>
+          <span class="ks-skill-tag"><i class="fas fa-database"></i> PostgreSQL</span>
+        </div>
+      </div>
+
+      <!-- ── FRONTEND ─────────────────────────────────────── -->
+      <div class="ks-skill-card ks-reveal ks-delay-1" data-cat="frontend" data-delay="150" id="skill-frontend">
+        <div class="ks-skill-card__glow"></div>
+        <div class="ks-skill-card__header">
+          <div class="ks-skill-card__icon-wrap">
+            <i class="fas fa-palette"></i>
+          </div>
+          <div>
+            <div class="ks-skill-card__title">Frontend</div>
+            <div class="ks-skill-card__category">UI Development</div>
+          </div>
+        </div>
+
+        <div class="ks-ring-container">
+          <svg class="ks-progress-ring" width="110" height="110" viewBox="0 0 110 110">
+            <circle class="ks-progress-ring__track" cx="55" cy="55" r="45"/>
+            <circle class="ks-progress-ring__fill" data-pct="80" cx="55" cy="55" r="45"/>
+          </svg>
+          <div class="ks-ring-center">
+            <div class="ks-ring-pct">80%</div>
+            <div class="ks-ring-level">Skilled</div>
+          </div>
+        </div>
+
+        <div class="ks-skill-tags">
+          <span class="ks-skill-tag"><i class="fab fa-html5"></i> HTML</span>
+          <span class="ks-skill-tag"><i class="fab fa-css3-alt"></i> CSS</span>
+          <span class="ks-skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+        </div>
+      </div>
+
+      <!-- ── AI / ML ──────────────────────────────────────── -->
+      <div class="ks-skill-card ks-reveal ks-delay-2" data-cat="aiml" data-delay="300" id="skill-aiml">
+        <div class="ks-skill-card__glow"></div>
+        <div class="ks-skill-card__header">
+          <div class="ks-skill-card__icon-wrap">
+            <i class="fas fa-brain"></i>
+          </div>
+          <div>
+            <div class="ks-skill-card__title">AI / ML</div>
+            <div class="ks-skill-card__category">Artificial Intelligence</div>
+          </div>
+        </div>
+
+        <div class="ks-ring-container">
+          <svg class="ks-progress-ring" width="110" height="110" viewBox="0 0 110 110">
+            <circle class="ks-progress-ring__track" cx="55" cy="55" r="45"/>
+            <circle class="ks-progress-ring__fill" data-pct="85" cx="55" cy="55" r="45"/>
+          </svg>
+          <div class="ks-ring-center">
+            <div class="ks-ring-pct">85%</div>
+            <div class="ks-ring-level">Advanced</div>
+          </div>
+        </div>
+
+        <div class="ks-skill-tags">
+          <span class="ks-skill-tag"><i class="fas fa-chart-line"></i> Machine Learning</span>
+          <span class="ks-skill-tag"><i class="fas fa-network-wired"></i> Deep Learning</span>
+          <span class="ks-skill-tag"><i class="fas fa-comments"></i> LLM Integration</span>
+          <span class="ks-skill-tag"><i class="fas fa-eye"></i> Computer Vision</span>
+          <span class="ks-skill-tag"><i class="fas fa-wand-magic-sparkles"></i> Generative AI</span>
+        </div>
+      </div>
+
+      <!-- ── CLOUD ────────────────────────────────────────── -->
+      <div class="ks-skill-card ks-reveal ks-delay-3" data-cat="cloud" data-delay="450" id="skill-cloud">
+        <div class="ks-skill-card__glow"></div>
+        <div class="ks-skill-card__header">
+          <div class="ks-skill-card__icon-wrap">
+            <i class="fas fa-cloud"></i>
+          </div>
+          <div>
+            <div class="ks-skill-card__title">Cloud</div>
+            <div class="ks-skill-card__category">Infrastructure & DevOps</div>
+          </div>
+        </div>
+
+        <div class="ks-ring-container">
+          <svg class="ks-progress-ring" width="110" height="110" viewBox="0 0 110 110">
+            <circle class="ks-progress-ring__track" cx="55" cy="55" r="45"/>
+            <circle class="ks-progress-ring__fill" data-pct="72" cx="55" cy="55" r="45"/>
+          </svg>
+          <div class="ks-ring-center">
+            <div class="ks-ring-pct">72%</div>
+            <div class="ks-ring-level">Growing</div>
+          </div>
+        </div>
+
+        <div class="ks-skill-tags">
+          <span class="ks-skill-tag"><i class="fab fa-aws"></i> AWS</span>
+          <span class="ks-skill-tag"><i class="fab fa-google"></i> GCP</span>
+          <span class="ks-skill-tag"><i class="fab fa-docker"></i> Docker</span>
+          <span class="ks-skill-tag"><i class="fas fa-dharmachakra"></i> Kubernetes</span>
+        </div>
+      </div>
+
+      <!-- ── TOOLS ────────────────────────────────────────── -->
+      <div class="ks-skill-card ks-reveal ks-delay-4" data-cat="tools" data-delay="600" id="skill-tools">
+        <div class="ks-skill-card__glow"></div>
+        <div class="ks-skill-card__header">
+          <div class="ks-skill-card__icon-wrap">
+            <i class="fas fa-screwdriver-wrench"></i>
+          </div>
+          <div>
+            <div class="ks-skill-card__title">Tools</div>
+            <div class="ks-skill-card__category">Developer Toolchain</div>
+          </div>
+        </div>
+
+        <div class="ks-ring-container">
+          <svg class="ks-progress-ring" width="110" height="110" viewBox="0 0 110 110">
+            <circle class="ks-progress-ring__track" cx="55" cy="55" r="45"/>
+            <circle class="ks-progress-ring__fill" data-pct="88" cx="55" cy="55" r="45"/>
+          </svg>
+          <div class="ks-ring-center">
+            <div class="ks-ring-pct">88%</div>
+            <div class="ks-ring-level">Proficient</div>
+          </div>
+        </div>
+
+        <div class="ks-skill-tags">
+          <span class="ks-skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+          <span class="ks-skill-tag"><i class="fab fa-github"></i> GitHub</span>
+          <span class="ks-skill-tag"><i class="fas fa-code"></i> VS Code</span>
+          <span class="ks-skill-tag"><i class="fas fa-satellite-dish"></i> Postman</span>
+          <span class="ks-skill-tag"><i class="fab fa-linux"></i> Linux</span>
+        </div>
+      </div>
+
+    </div><!-- /.ks-skills-grid -->
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     EXPERIENCE & EDUCATION TIMELINE
+══════════════════════════════════════════════════════════════ -->
+<section class="ks-timeline-section" id="experience">
+  <div class="container">
+    <div class="ks-section-header ks-reveal">
+      <div class="ks-section-overline">Journey</div>
+      <h2 class="ks-section-title">
+        Experience &amp; <span class="ks-gradient-text">Education</span>
+      </h2>
+    </div>
+
+    <div class="ks-timeline-grid">
+
+      <!-- ── Work Experience ──────────────────────────────── -->
+      <div class="ks-reveal" id="exp-col">
+        <div class="ks-timeline-col-title">
+          <i class="fas fa-briefcase"></i>
+          Work Experience
+        </div>
+
+        <div class="ks-timeline">
+          <div class="ks-timeline-item">
+            <div class="ks-timeline-dot"></div>
+            <div class="ks-timeline-card">
+              <div class="ks-timeline-date">7 Months Internship</div>
+              <div class="ks-timeline-title">Python Developer Intern</div>
+              <div class="ks-timeline-company">
+                <i class="fas fa-building"></i>
+                Dotsquares Pvt. Ltd., Jagatpura, Jaipur
+              </div>
+              <div class="ks-timeline-desc">
+                Worked on real-world development practices, strengthened expertise in backend engineering,
+                REST API development, and software development workflows.
+                Contributed to production-grade Python applications.
+              </div>
+              <span class="ks-timeline-badge">Python · Flask · REST API · Backend</span>
+            </div>
+          </div>
+
+          <div class="ks-timeline-item">
+            <div class="ks-timeline-dot"></div>
+            <div class="ks-timeline-card">
+              <div class="ks-timeline-date">Ongoing</div>
+              <div class="ks-timeline-title">AI/ML Projects & Development</div>
+              <div class="ks-timeline-company">
+                <i class="fas fa-laptop-code"></i>
+                Self-Driven / Personal Projects
+              </div>
+              <div class="ks-timeline-desc">
+                Building intelligent systems including ML models, LLM-powered applications,
+                Computer Vision solutions, Generative AI tools, and FastAPI-based backend services.
+              </div>
+              <span class="ks-timeline-badge">Machine Learning · LLM · Computer Vision · Generative AI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Education ────────────────────────────────────── -->
+      <div class="ks-reveal ks-delay-2" id="edu-col">
+        <div class="ks-timeline-col-title ks-timeline--edu" style="color:var(--accent-2);">
+          <i class="fas fa-graduation-cap"></i>
+          Education
+        </div>
+
+        <div class="ks-timeline ks-timeline--edu">
+          <div class="ks-timeline-item">
+            <div class="ks-timeline-dot"></div>
+            <div class="ks-timeline-card">
+              <div class="ks-timeline-date" style="color:var(--accent-2);">2025 – 2027 · Pursuing</div>
+              <div class="ks-timeline-title">Master of Computer Applications (MCA)</div>
+              <div class="ks-timeline-company">
+                <i class="fas fa-university"></i>
+                JECRC University, Sitapura, Jaipur
+              </div>
+              <div class="ks-timeline-desc">
+                Pursuing MCA with focus on Artificial Intelligence, Machine Learning,
+                and advanced software engineering. Continuously building skills in AI/ML
+                and cloud-based application development.
+              </div>
+              <span class="ks-timeline-badge" style="background:rgba(0,229,255,0.08);border-color:rgba(0,229,255,0.2);color:var(--accent-2);">
+                AI · Machine Learning · Advanced CS
+              </span>
+            </div>
+          </div>
+
+          <div class="ks-timeline-item">
+            <div class="ks-timeline-dot"></div>
+            <div class="ks-timeline-card">
+              <div class="ks-timeline-date" style="color:var(--accent-2);">2022 – 2025</div>
+              <div class="ks-timeline-title">Bachelor of Computer Applications (BCA)</div>
+              <div class="ks-timeline-company">
+                <i class="fas fa-university"></i>
+                Rajasthan University, Jaipur
+              </div>
+              <div class="ks-timeline-desc">
+                Completed BCA with strong foundations in programming, databases, networking,
+                and software development. Developed early interest in Python, AI systems,
+                and backend engineering during this period.
+              </div>
+              <span class="ks-timeline-badge" style="background:rgba(0,229,255,0.08);border-color:rgba(0,229,255,0.2);color:var(--accent-2);">
+                Python · Web Dev · Databases
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.ks-timeline-grid -->
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     PROJECTS SECTION — Showcase Cards
+══════════════════════════════════════════════════════════════ -->
+<section class="ks-about-projects-section" id="projects">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="ks-section-header ks-reveal" id="about-projects-header">
+      <div class="ks-section-overline">Work</div>
+      <h2 class="ks-section-title">
+        Featured <span class="ks-gradient-text">Projects</span>
+      </h2>
+      <p class="ks-section-desc">
+        Production-ready applications built with real-world technologies, from intelligent automation to data-driven web apps.
+      </p>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="ks-about-projects-grid">
+
+      <!-- ── Card: Binance Futures Trading Bot ─────────────── -->
+      <article class="ks-about-proj-card ks-reveal" id="proj-card-binance">
+        <div class="ks-about-proj-card__glow"></div>
+
+        <!-- Icon + Category -->
+        <div class="ks-about-proj-card__header">
+          <div class="ks-about-proj-card__icon-wrap">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="ks-about-proj-card__category">AI Trading · Automation</div>
+        </div>
+
+        <!-- Title & Description -->
+        <h3 class="ks-about-proj-card__title">Binance Futures Trading Bot</h3>
+        <p class="ks-about-proj-card__desc">
+          An automated trading bot for Binance futures market. Executes strategy-based orders, manages risk with Stop-Loss & Take-Profit, and includes a backtesting engine for validating strategies on historical data.
+        </p>
+
+        <!-- Tech Stack Tags -->
+        <div class="ks-about-proj-card__tags">
+          <span class="ks-about-proj-tag"><i class="fab fa-python"></i> Python</span>
+          <span class="ks-about-proj-tag"><i class="fas fa-plug"></i> Binance API</span>
+          <span class="ks-about-proj-tag"><i class="fas fa-table"></i> Pandas</span>
+          <span class="ks-about-proj-tag"><i class="fas fa-wave-square"></i> WebSockets</span>
+          <span class="ks-about-proj-tag"><i class="fas fa-calculator"></i> NumPy</span>
+        </div>
+
+        <!-- Actions -->
+        <div class="ks-about-proj-card__footer">
+          <a href="https://github.com/krishansharma09/binance-futures-trading-bot"
+             target="_blank" rel="noopener"
+             class="ks-about-proj-gh-btn" id="proj-gh-binance">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </article>
+
+      <!-- ── Card: Personal Finance Dashboard ──────────────── -->
+      <article class="ks-about-proj-card ks-reveal ks-delay-1" id="proj-card-finance">
+        <div class="ks-about-proj-card__glow ks-about-proj-card__glow--cyan"></div>
+
+        <!-- Icon + Category -->
+        <div class="ks-about-proj-card__header">
+          <div class="ks-about-proj-card__icon-wrap ks-about-proj-card__icon-wrap--cyan">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <div class="ks-about-proj-card__category">Finance · Data · Web App</div>
+        </div>
+
+        <!-- Title & Description -->
+        <h3 class="ks-about-proj-card__title">Personal Finance Dashboard</h3>
+        <p class="ks-about-proj-card__desc">
+          Upload a bank statement CSV and instantly see auto-categorized spending insights. Keyword-based categorization, summary cards for income/expenses/savings, switchable chart types, and a sortable transactions table.
+        </p>
+
+        <!-- Tech Stack Tags -->
+        <div class="ks-about-proj-card__tags">
+          <span class="ks-about-proj-tag"><i class="fas fa-flask"></i> Flask</span>
+          <span class="ks-about-proj-tag"><i class="fas fa-table"></i> Pandas</span>
+          <span class="ks-about-proj-tag"><i class="fas fa-chart-bar"></i> Chart.js</span>
+          <span class="ks-about-proj-tag"><i class="fab fa-html5"></i> HTML/CSS/JS</span>
+          <span class="ks-about-proj-tag"><i class="fas fa-file-csv"></i> CSV Upload</span>
+        </div>
+
+        <!-- Actions -->
+        <div class="ks-about-proj-card__footer">
+          <a href="https://github.com/krishansharma09/Personal-Finance-Dashboard"
+             target="_blank" rel="noopener"
+             class="ks-about-proj-gh-btn" id="proj-gh-finance">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </div>
+      </article>
+
+    </div><!-- /.ks-about-projects-grid -->
+
+    <!-- View All Projects CTA -->
+    <div class="ks-reveal ks-delay-2" style="text-align:center; margin-top:40px;">
+      <a href="{{ url_for('projects.list_projects') }}" class="ks-btn-outline" id="about-view-all-projects-btn">
+        <i class="fas fa-eye"></i> View All Projects
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     CTA — Connect
+══════════════════════════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg-secondary); border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="card card-glow text-center reveal" style="padding:64px; border-color:rgba(0,255,136,0.3); border-width:1px; max-width:700px; margin:0 auto; box-shadow: 0 0 60px rgba(0,255,136,0.06);">
+      <div class="overline" style="margin-bottom:16px">Let's Build Together</div>
+      <h2>Ready to create something <span class="gradient-text">intelligent?</span></h2>
+      <p style="margin:16px 0 32px; font-size:1.05rem;">
+        Let's collaborate on AI/ML projects, backend systems, or innovative tech solutions.
+        I'm actively looking for opportunities to grow and contribute.
+      </p>
+      <div class="flex-center gap-md" style="flex-wrap:wrap;">
+        <a href="{{ url_for('client.submit_request') }}" class="ks-btn-primary">
+          <i class="fas fa-rocket"></i> Start a Project
+        </a>
+        <a href="{{ url_for('main.contact') }}" class="ks-btn-outline">
+          <i class="fas fa-envelope"></i> Get in Touch
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

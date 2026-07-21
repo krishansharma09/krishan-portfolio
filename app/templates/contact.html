@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block title %}Contact Krishan Sharma — Python Developer & AI/ML Engineer{% endblock %}
+{% block meta_description %}Get in touch with Krishan Sharma — Python Developer & AI/ML Engineer. Open for AI, Python, Backend and development opportunities. Email, GitHub, LinkedIn.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/contact_premium.css') }}" />
+{% endblock %}
+
+{% block content %}
+
+<!-- ── Mouse Spotlight ─────────────────────────────────────── -->
+<div class="cp-spotlight" id="cpSpotlight" aria-hidden="true"></div>
+
+<!-- ── Copied Toast ───────────────────────────────────────── -->
+<div class="cp-copied-toast" id="cpCopiedToast" role="status" aria-live="polite"></div>
+
+<!-- ── Animated Background ────────────────────────────────── -->
+<div class="cp-bg" aria-hidden="true">
+  <canvas id="cp-particles-canvas"></canvas>
+  <div class="cp-bg-blob cp-bg-blob--1"></div>
+  <div class="cp-bg-blob cp-bg-blob--2"></div>
+  <div class="cp-bg-blob cp-bg-blob--3"></div>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="cp-hero">
+  <div class="container">
+    <div class="cp-hero__overline" style="font-family:var(--font-mono);letter-spacing:0.12em;">// 06. CONTACT & GET IN TOUCH</div>
+  </div>
+</section>
+
+<!-- ── MAIN CONTENT ───────────────────────────────────────── -->
+<section class="cp-main">
+  <div class="container">
+    <div class="cp-grid">
+
+      <!-- ══════════════════════
+           LEFT SIDE
+      ══════════════════════ -->
+      <div class="cp-left">
+
+        <h1 class="cp-left__heading">
+          Let's Create Something<br>
+          <span class="gradient-text">Exceptional</span>
+        </h1>
+        <p class="cp-left__subtitle">
+          Open for AI, Python, Backend and development opportunities.
+          Let's build something intelligent together.
+        </p>
+
+        <!-- Contact Cards -->
+        <div class="cp-cards">
+
+          <!-- Email — click to copy -->
+          <div class="cp-card cp-reveal cp-reveal-delay-1"
+               id="cpEmailCard"
+               role="button"
+               tabindex="0"
+               aria-label="Copy email address"
+               onkeydown="if(event.key==='Enter'||event.key===' ')this.click()">
+            <div class="cp-card__icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div class="cp-card__info">
+              <div class="cp-card__label">Email</div>
+              <div class="cp-card__value">krishansharma995060@gmail.com</div>
+            </div>
+            <div class="cp-card__action">
+              <i class="fas fa-copy"></i> Copy
+            </div>
+          </div>
+
+          <!-- GitHub — opens link -->
+          <a class="cp-card cp-card--github cp-reveal cp-reveal-delay-2"
+             href="https://github.com/krishansharma09"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Visit GitHub profile">
+            <div class="cp-card__icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <div class="cp-card__info">
+              <div class="cp-card__label">GitHub</div>
+              <div class="cp-card__value">github.com/krishansharma09</div>
+            </div>
+            <div class="cp-card__action">
+              <i class="fas fa-external-link-alt"></i> Visit
+            </div>
+          </a>
+
+          <!-- LinkedIn — opens link -->
+          <a class="cp-card cp-card--linkedin cp-reveal cp-reveal-delay-3"
+             href="https://www.linkedin.com/in/krishan-sharma-50a89635b"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Visit LinkedIn profile">
+            <div class="cp-card__icon">
+              <i class="fab fa-linkedin-in"></i>
+            </div>
+            <div class="cp-card__info">
+              <div class="cp-card__label">LinkedIn</div>
+              <div class="cp-card__value">in/krishan-sharma-50a89635b</div>
+            </div>
+            <div class="cp-card__action">
+              <i class="fas fa-external-link-alt"></i> Connect
+            </div>
+          </a>
+
+        </div><!-- /cp-cards -->
+      </div><!-- /cp-left -->
+
+      <!-- ══════════════════════
+           RIGHT SIDE — Form
+      ══════════════════════ -->
+      <div class="cp-right">
+        <div class="cp-form-glass">
+          <h2 class="cp-form-title">Send a Message</h2>
+
+          <form id="cpContactForm" novalidate>
+
+            <div class="cp-field">
+              <label class="cp-label" for="cp-name">Name</label>
+              <input
+                class="cp-input"
+                type="text"
+                id="cp-name"
+                name="name"
+                required
+                placeholder="Your name"
+                autocomplete="name" />
+            </div>
+
+            <div class="cp-field">
+              <label class="cp-label" for="cp-email">Email</label>
+              <input
+                class="cp-input"
+                type="email"
+                id="cp-email"
+                name="email"
+                required
+                placeholder="your@email.com"
+                autocomplete="email" />
+            </div>
+
+            <div class="cp-field">
+              <label class="cp-label" for="cp-message">Message</label>
+              <textarea
+                class="cp-textarea"
+                id="cp-message"
+                name="message"
+                required
+                placeholder="Tell me about your project, idea, or opportunity..."
+                rows="6"></textarea>
+            </div>
+
+            <button type="submit" class="cp-submit" id="cpSubmitBtn">
+              <span class="cp-spinner"></span>
+              <span class="cp-btn-label">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </span>
+            </button>
+
+          </form>
+        </div><!-- /cp-form-glass -->
+      </div><!-- /cp-right -->
+
+    </div><!-- /cp-grid -->
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/contact_premium.js') }}"></script>
+{% endblock %}

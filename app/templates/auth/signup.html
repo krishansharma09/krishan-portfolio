@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Sign Up — FreelanceHub{% endblock %}
+
+{% block content %}
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px var(--space-lg) var(--space-lg)">
+  <div style="width:100%;max-width:460px">
+    <div class="text-center" style="margin-bottom:32px">
+      <a href="{{ url_for('main.index') }}" class="navbar__logo" style="font-size:1.8rem;display:inline-block;margin-bottom:8px">FreelanceHub</a>
+      <h2 style="font-size:1.5rem">Create Account</h2>
+      <p style="font-size:0.9rem;margin-top:4px">Join to submit project requests</p>
+    </div>
+
+    <div class="card animate-fade-up">
+      <form method="POST" action="{{ url_for('auth.signup') }}" id="signupForm">
+        <div class="form-group">
+          <label class="form-label" for="su-username">Username</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon"><i class="fas fa-user"></i></span>
+            <input type="text" class="form-control" id="su-username" name="username" required minlength="3" autocomplete="username" placeholder="johndoe" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="su-email">Email Address</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon"><i class="fas fa-envelope"></i></span>
+            <input type="email" class="form-control" id="su-email" name="email" required autocomplete="email" placeholder="john@example.com" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="su-password">Password</label>
+            <div class="input-icon-wrap">
+              <span class="input-icon"><i class="fas fa-lock"></i></span>
+              <input type="password" class="form-control" id="su-password" name="password" required minlength="8" placeholder="Min 8 characters" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="su-confirm">Confirm Password</label>
+            <div class="input-icon-wrap">
+              <span class="input-icon"><i class="fas fa-lock"></i></span>
+              <input type="password" class="form-control" id="su-confirm" name="confirm_password" required placeholder="Repeat password" />
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:8px">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+      </form>
+
+      <div class="divider-gradient" style="margin:24px 0"></div>
+
+      <p class="text-center" style="font-size:0.88rem;color:var(--text-secondary)">
+        Already have an account?
+        <a href="{{ url_for('auth.login') }}" style="color:var(--accent-light);font-weight:600">Sign In</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

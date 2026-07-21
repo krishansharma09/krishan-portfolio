@@ -1,0 +1,211 @@
+{% extends "base.html" %}
+{% block title %}Start a Project — FreelanceHub{% endblock %}
+{% block meta_description %}Submit your project requirements to Alex. Include your budget, deadline, and description for a quick response.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container" style="max-width:680px">
+    <div class="overline reveal" style="font-family:var(--font-mono);letter-spacing:0.12em;color:var(--accent);">// 06. START A PROJECT &amp; CLIENT BRIEF</div>
+    <h1 class="reveal delay-1">Start a <span class="highlight">Project</span></h1>
+    <p class="reveal delay-2" style="margin:16px auto 0;font-size:1.05rem">
+      Fill out the brief below and I'll review it and respond within 24 hours.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="max-width:760px">
+    <div class="card reveal">
+
+      <!-- Hire Me Profile Badge -->
+      <div class="hire-me-profile-header">
+        <div class="hire-me-avatar">
+          <img src="{{ url_for('static', filename='assets/profile.jpg') }}" alt="Krishan Sharma — Python & AI/ML Developer" />
+        </div>
+        <div class="hire-me-info">
+          <h3 class="hire-me-name">Krishan Sharma</h3>
+          <p class="hire-me-role">Python Developer &amp; AI/ML Engineer</p>
+          <div class="hire-me-status"><span class="status-dot"></span> Available for Hire &amp; Collaborations</div>
+        </div>
+      </div>
+
+      <form id="requestForm" novalidate>
+        <!-- Web3Forms required fields -->
+        <input type="hidden" name="access_key" value="9a67801f-76cc-4174-b30c-49ee971d4d39" />
+        <input type="hidden" name="subject"    value="New Project Request — Portfolio" />
+        <input type="hidden" name="botcheck"   value="" style="display:none" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="req-name">Your Name *</label>
+            <div class="input-icon-wrap">
+              <span class="input-icon"><i class="fas fa-user"></i></span>
+              <input type="text" class="form-control" id="req-name" name="name"
+                     value="{{ current_user.full_name or current_user.username if current_user.is_authenticated else '' }}"
+                     required placeholder="Full name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="req-email">Email Address *</label>
+            <div class="input-icon-wrap">
+              <span class="input-icon"><i class="fas fa-envelope"></i></span>
+              <input type="email" class="form-control" id="req-email" name="email"
+                     value="{{ current_user.email if current_user.is_authenticated else '' }}"
+                     required placeholder="your@email.com" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="req-title">Project Title *</label>
+          <input type="text" class="form-control" id="req-title" name="title" required placeholder="e.g. E-Commerce Platform, AI Chatbot..." />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="req-description">Project Description *</label>
+          <textarea class="form-control" id="req-description" name="description" rows="6" required
+                    placeholder="Describe your project — goals, features, target audience, any existing systems, etc. The more detail, the better!"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="req-budget">Budget Range</label>
+            <select class="form-control" id="req-budget" name="budget">
+              <option value="">Select budget range...</option>
+              <option value="< $500">Less than $500</option>
+              <option value="$500 - $1,000">$500 – $1,000</option>
+              <option value="$1,000 - $3,000">$1,000 – $3,000</option>
+              <option value="$3,000 - $10,000">$3,000 – $10,000</option>
+              <option value="$10,000+">$10,000+</option>
+              <option value="Discuss">Let's Discuss</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="req-deadline">Desired Deadline</label>
+            <div class="input-icon-wrap">
+              <span class="input-icon"><i class="fas fa-calendar"></i></span>
+              <input type="date" class="form-control" id="req-deadline" name="deadline" />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="req-reflink">Project Reference Link (optional)</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon"><i class="fas fa-link"></i></span>
+            <input type="url" class="form-control" id="req-reflink" name="reference_link"
+                   placeholder="Paste a Google Drive, Dropbox, or WeTransfer link if you have reference files" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg" id="reqSubmitBtn"
+                style="width:100%;justify-content:center">
+          <i class="fas fa-paper-plane"></i>
+          <span id="reqSubmitLabel">Submit Project Request</span>
+        </button>
+        <p style="text-align:center;font-size:0.82rem;color:var(--text-muted);margin-top:12px">
+          <i class="fas fa-lock" style="margin-right:4px"></i>
+          Your information is kept confidential and never shared.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  'use strict';
+
+  var EMAILJS_SERVICE  = 'service_mp9u6gh';
+  var EMAILJS_TEMPLATE = 'template_73skj0n';
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var form  = document.getElementById('requestForm');
+    var btn   = document.getElementById('reqSubmitBtn');
+    var label = document.getElementById('reqSubmitLabel');
+    var icon  = btn ? btn.querySelector('i') : null;
+    if (!form || !btn) return;
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // ── Validation ──────────────────────────────────────
+      var nameVal  = (document.getElementById('req-name')?.value        || '').trim();
+      var emailVal = (document.getElementById('req-email')?.value       || '').trim();
+      var titleVal = (document.getElementById('req-title')?.value       || '').trim();
+      var descVal  = (document.getElementById('req-description')?.value || '').trim();
+
+      if (!nameVal) {
+        if (window.showToast) showToast('Please enter your name.', 'error');
+        document.getElementById('req-name')?.focus();
+        return;
+      }
+      if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        if (window.showToast) showToast('Please enter a valid email address.', 'error');
+        document.getElementById('req-email')?.focus();
+        return;
+      }
+      if (!titleVal) {
+        if (window.showToast) showToast('Please enter a project title.', 'error');
+        document.getElementById('req-title')?.focus();
+        return;
+      }
+      if (!descVal || descVal.length < 10) {
+        if (window.showToast) showToast('Please describe your project (at least 10 characters).', 'error');
+        document.getElementById('req-description')?.focus();
+        return;
+      }
+
+      // ── Loading state ─────────────────────────────────
+      btn.disabled = true;
+      if (label) label.textContent = 'Sending...';
+      if (icon)  { icon.className = 'fas fa-spinner fa-spin'; }
+
+      // ── EmailJS payload ───────────────────────────────
+      var budgetVal    = document.getElementById('req-budget')?.value   || 'Not specified';
+      var deadlineVal  = document.getElementById('req-deadline')?.value || 'Not specified';
+      var refLinkVal   = document.getElementById('req-reflink')?.value  || '';
+
+      var templateParams = {
+        from_name       : nameVal,
+        from_email      : emailVal,
+        message         : 'Project Title: ' + titleVal + '\n\n' + descVal + (refLinkVal ? '\n\nReference Link: ' + refLinkVal : ''),
+        form_type       : 'Start a Project',
+        project_details : titleVal,
+        budget          : budgetVal,
+        timeline        : deadlineVal
+      };
+
+      console.log('Sending EmailJS payload:', templateParams);
+
+      emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, templateParams)
+        .then(function (res) {
+          console.log('EmailJS Success:', res);
+          btn.classList.add('btn-success');
+          if (icon)  { icon.className = 'fas fa-check'; }
+          if (label) label.textContent = 'Request Sent!';
+          form.reset();
+          if (window.showToast)
+            showToast('✓ Project request sent! I\'ll review it and reply within 24 hours.', 'success');
+          setTimeout(function () {
+            btn.disabled = false;
+            btn.classList.remove('btn-success');
+            if (icon)  { icon.className = 'fas fa-paper-plane'; }
+            if (label) label.textContent = 'Submit Project Request';
+          }, 4000);
+        })
+        .catch(function (err) {
+          console.error('EmailJS Error:', err);
+          var errMsg = (err && (err.text || err.message)) ? (err.text || err.message) : JSON.stringify(err);
+          btn.disabled = false;
+          if (icon)  { icon.className = 'fas fa-paper-plane'; }
+          if (label) label.textContent = 'Submit Project Request';
+          if (window.showToast)
+            showToast('Email delivery failed: ' + errMsg + '. Please email krishansharma995060@gmail.com directly.', 'error');
+        });
+    });
+  });
+})();
+</script>
+{% endblock %}

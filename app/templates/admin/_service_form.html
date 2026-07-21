@@ -1,0 +1,32 @@
+<div class="form-group">
+  <label class="form-label">Title *</label>
+  <input type="text" class="form-control" name="title" required />
+</div>
+<div class="form-group">
+  <label class="form-label">Short Description *</label>
+  <textarea class="form-control" name="description" rows="3" required></textarea>
+</div>
+<div class="form-group">
+  <label class="form-label">Long Description</label>
+  <textarea class="form-control" name="long_description" rows="4"></textarea>
+</div>
+<div class="form-row">
+  <div class="form-group">
+    <label class="form-label">Icon (FontAwesome class)</label>
+    <input type="text" class="form-control" name="icon" value="fas fa-code" />
+  </div>
+  <div class="form-group">
+    <label class="form-label">Price Range</label>
+    <input type="text" class="form-control" name="price_range" placeholder="e.g. $500 - $2000" />
+  </div>
+</div>
+<div class="form-group">
+  <label class="form-label">Delivery Time</label>
+  <input type="text" class="form-control" name="delivery_time" placeholder="e.g. 2-4 weeks" />
+</div>
+<div class="form-group flex gap-sm" style="align-items:center;margin-bottom:24px">
+  <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.9rem;color:var(--text-secondary)">
+    <input type="checkbox" name="is_featured" style="accent-color:var(--accent)" />
+    Featured service
+  </label>
+</div>

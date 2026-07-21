@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block title %}Projects — Krishan Sharma | Python Developer & AI/ML Engineer{% endblock %}
+{% block meta_description %}Production-ready applications built by Krishan Sharma — Python Developer & AI/ML Engineer. Featuring Binance Futures Trading Bot and more.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/projects_showcase.css') }}" />
+{% endblock %}
+
+{% block content %}
+<div class="pj-showcase-page">
+
+  <!-- ══════════════════════════════════════════════════════
+       HERO HEADER
+  ══════════════════════════════════════════════════════ -->
+  <div class="pj-hero">
+    <div class="pj-hero__bg">
+      <div class="pj-hero__grid"></div>
+      <div class="pj-hero__blob pj-hero__blob--1"></div>
+      <div class="pj-hero__blob pj-hero__blob--2"></div>
+    </div>
+
+    <div class="container pj-hero__inner">
+      <div class="pj-hero__overline">Featured Work</div>
+      <h1 class="pj-hero__title">
+        Featured <span class="ks-gradient-text">Projects</span>
+      </h1>
+      <p class="pj-hero__subtitle">
+        Production-ready applications built with real-world technologies.
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PROJECT SHOWCASE SECTION
+  ══════════════════════════════════════════════════════ -->
+  <section class="pj-showcase-section" id="projects-showcase">
+    <!-- Floating particles canvas -->
+    <canvas id="pj-particles"></canvas>
+
+    <div class="container">
+
+      <!-- JS renders cards + placeholder into this grid -->
+      <div id="pjShowcaseGrid"></div>
+
+      <!-- ── DB Projects (Archive) ──────────────────────── -->
+      {% if projects %}
+      <div style="margin-top:100px; padding-top:60px; border-top:1px solid rgba(0,255,136,0.08);">
+        <div class="ks-section-header" style="text-align:left; margin-bottom:40px;">
+          <div class="ks-section-overline">Archive</div>
+          <h2 class="ks-section-title" style="font-size:clamp(1.4rem,2.5vw,2rem);">
+            More <span class="ks-gradient-text">Case Studies</span>
+          </h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+          {% for project in projects %}
+          <article class="ks-skill-card ks-reveal" style="padding:28px;cursor:pointer;"
+                   onclick="window.location='{{ url_for('projects.project_detail', slug=project.slug) }}'">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;">
+              <div>
+                {% if project.category %}
+                  <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:6px;">{{ project.category }}</div>
+                {% endif %}
+                <h3 style="font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;">{{ project.title }}</h3>
+              </div>
+              <div style="width:40px;height:40px;border-radius:12px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);">
+                <i class="fas fa-laptop-code"></i>
+              </div>
+            </div>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.7;margin-bottom:16px;">{{ project.description }}</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;">
+              {% for tech in project.tech_list[:4] %}
+                <span class="pj-chip pj-chip--visible">{{ tech }}</span>
+              {% endfor %}
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+              <a href="{{ url_for('projects.project_detail', slug=project.slug) }}"
+                 class="ks-btn-outline" style="padding:8px 18px;font-size:0.8rem;"
+                 onclick="event.stopPropagation()">
+                Case Study <i class="fas fa-arrow-right"></i>
+              </a>
+              {% if project.github_url %}
+              <a href="{{ project.github_url }}" target="_blank" rel="noopener"
+                 class="pj-gh-btn" style="padding:8px 14px;font-size:0.78rem;"
+                 onclick="event.stopPropagation()">
+                <i class="fab fa-github"></i>
+              </a>
+              {% endif %}
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       COMING SOON — COMPACT
+  ══════════════════════════════════════════════════════ -->
+  <section class="pj-coming-soon-section">
+    <div class="container">
+      <div class="pj-coming-soon-card ks-reveal">
+        <div class="pj-cs-left">
+          <div class="pj-cs-rocket" aria-hidden="true">
+            <i class="fas fa-rocket"></i>
+          </div>
+        </div>
+        <div class="pj-cs-center">
+          <h3 class="pj-cs-title">More Projects Coming Soon</h3>
+          <p class="pj-cs-subtitle">
+            Currently building and refining new AI, backend and automation projects.
+          </p>
+          <div class="pj-cs-typing" id="pjCsTyping" aria-label="Upcoming projects"></div>
+        </div>
+        <div class="pj-cs-right">
+          <div class="pj-cs-dots">
+            <span class="pj-cs-dot"></span>
+            <span class="pj-cs-dot"></span>
+            <span class="pj-cs-dot"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       CTA SECTION
+  ══════════════════════════════════════════════════════ -->
+  <section style="padding:80px 0;background:var(--bg-secondary);border-top:1px solid rgba(0,255,136,0.08);">
+    <div class="container">
+      <div style="max-width:640px;margin:0 auto;text-align:center;" class="ks-reveal">
+        <div class="ks-section-overline">Collaborate</div>
+        <h2 class="ks-section-title">Have an idea for a <span class="ks-gradient-text">project?</span></h2>
+        <p style="color:var(--text-secondary);margin:14px 0 32px;line-height:1.7;">
+          Let's build intelligent, production-ready systems together.
+          I'm actively looking for AI/ML and backend development opportunities.
+        </p>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+          <a href="{{ url_for('client.submit_request') }}" class="ks-btn-primary">
+            <i class="fas fa-rocket"></i> Start a Project
+          </a>
+          <a href="{{ url_for('main.contact') }}" class="ks-btn-outline">
+            <i class="fas fa-envelope"></i> Get in Touch
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/projects_showcase.js') }}"></script>
+{% endblock %}

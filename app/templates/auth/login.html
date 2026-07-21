@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Login — FreelanceHub{% endblock %}
+
+{% block content %}
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px var(--space-lg) var(--space-lg)">
+  <div style="width:100%;max-width:420px">
+    <div class="text-center" style="margin-bottom:32px">
+      <a href="{{ url_for('main.index') }}" class="navbar__logo" style="font-size:1.8rem;display:inline-block;margin-bottom:8px">FreelanceHub</a>
+      <h2 style="font-size:1.5rem">Welcome back</h2>
+      <p style="font-size:0.9rem;margin-top:4px">Sign in to your account</p>
+    </div>
+
+    <div class="card animate-fade-up" style="backdrop-filter:blur(16px)">
+      <form method="POST" action="{{ url_for('auth.login') }}" id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email Address</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon"><i class="fas fa-envelope"></i></span>
+            <input type="email" class="form-control" id="login-email" name="email" required autocomplete="email" placeholder="your@email.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon"><i class="fas fa-lock"></i></span>
+            <input type="password" class="form-control" id="login-password" name="password" required autocomplete="current-password" placeholder="Your password" />
+          </div>
+        </div>
+        <div class="form-group flex-between" style="margin-bottom:32px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.88rem;color:var(--text-secondary)">
+            <input type="checkbox" name="remember" style="accent-color:var(--accent)" />
+            Remember me
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+      </form>
+
+      <div class="divider-gradient" style="margin:24px 0"></div>
+
+      <p class="text-center" style="font-size:0.88rem;color:var(--text-secondary)">
+        Don't have an account?
+        <a href="{{ url_for('auth.signup') }}" style="color:var(--accent-light);font-weight:600">Sign Up</a>
+      </p>
+
+      <!-- Demo credentials hint -->
+      <div style="margin-top:20px;padding:12px;background:var(--bg-card);border-radius:var(--radius-md);border:1px solid var(--border);font-size:0.78rem;color:var(--text-muted)">
+        <strong style="color:var(--accent-light)">Demo Admin:</strong>
+        admin@freelancehub.com / Admin@12345
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

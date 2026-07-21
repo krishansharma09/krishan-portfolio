@@ -1,0 +1,107 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Manage Messages — Admin{% endblock %}
+{% block page_title %}Messages{% endblock %}
+{% block breadcrumb %}Admin / Messages{% endblock %}
+
+{% block content %}
+<div class="admin-card">
+  <div class="admin-card__header">
+    <div class="admin-card__title">
+      <i class="fas fa-envelope" style="color:var(--accent-light);margin-right:8px"></i>
+      Contact Messages ({{ messages | length }})
+    </div>
+  </div>
+  <div class="table-wrap admin-card__table">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Subject</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for msg in messages %}
+        <tr id="msg-row-{{ msg.id }}" style="{{ 'background:rgba(124,58,237,0.04)' if not msg.is_read else '' }}">
+          <td style="font-size:0.8rem;color:var(--text-muted)">{{ msg.id }}</td>
+          <td>
+            <div style="font-weight:{{ '600' if not msg.is_read else '400' }};color:var(--text-primary)">{{ msg.name }}</div>
+          </td>
+          <td><a href="mailto:{{ msg.email }}" style="font-size:0.88rem;color:var(--accent-light)">{{ msg.email }}</a></td>
+          <td class="truncate" style="max-width:200px">{{ msg.subject or 'No Subject' }}</td>
+          <td style="font-size:0.82rem;color:var(--text-muted)">
+            {{ msg.created_at.strftime('%b %d, %Y') if msg.created_at else '-' }}
+          </td>
+          <td>
+            {% if not msg.is_read %}
+              <span class="badge badge-danger">Unread</span>
+            {% else %}
+              <span class="badge badge-muted">Read</span>
+            {% endif %}
+          </td>
+          <td>
+            <div class="flex gap-sm">
+              <button class="btn btn-ghost btn-sm" onclick="viewMessage({{ msg.id }}, '{{ msg.name | e }}', '{{ msg.email | e }}', '{{ msg.subject | e }}', {{ msg.created_at.strftime('%Y-%m-%d') | tojson if msg.created_at else 'null' }})">
+                <i class="fas fa-eye"></i>
+              </button>
+              {% if not msg.is_read %}
+              <button class="btn btn-ghost btn-sm" data-mark-read="{{ url_for('admin.mark_read', mid=msg.id) }}" title="Mark as read">
+                <i class="fas fa-check"></i>
+              </button>
+              {% endif %}
+              <button class="btn btn-danger btn-sm"
+                      data-confirm-delete="{{ url_for('admin.delete_message', mid=msg.id) }}"
+                      data-label="message from {{ msg.name }}">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        <!-- Message body row (expandable) -->
+        <tr id="msg-body-{{ msg.id }}" style="display:none">
+          <td colspan="7" style="padding:0">
+            <div style="padding:16px 20px;background:var(--bg-card);border-top:1px solid var(--border);font-size:0.9rem;line-height:1.7;color:var(--text-secondary)">
+              {{ msg.message }}
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="7" class="text-center" style="padding:60px;color:var(--text-muted)">
+            <i class="fas fa-inbox" style="font-size:2rem;display:block;margin-bottom:12px"></i>
+            No messages yet
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Message View Modal -->
+<div class="modal-overlay" id="viewMsgModal">
+  <div class="modal">
+    <div class="modal__header">
+      <div class="modal__title">Message Details</div>
+      <button class="modal__close" onclick="closeModal('viewMsgModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="msgModalBody"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function viewMessage(id, name, email, subject, date) {
+  // Toggle inline body row
+  const bodyRow = document.getElementById('msg-body-' + id);
+  if (bodyRow) {
+    bodyRow.style.display = bodyRow.style.display === 'none' ? 'table-row' : 'none';
+  }
+}
+</script>
+{% endblock %}

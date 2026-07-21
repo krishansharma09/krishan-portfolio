@@ -1,0 +1,99 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Manage Services — Admin{% endblock %}
+{% block page_title %}Services{% endblock %}
+{% block breadcrumb %}Admin / Services{% endblock %}
+
+{% block content %}
+<div class="admin-card">
+  <div class="admin-card__header">
+    <div class="admin-card__title">
+      <i class="fas fa-concierge-bell" style="color:var(--accent-light);margin-right:8px"></i>
+      Services ({{ services | length }})
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="openModal('addServiceModal')">
+      <i class="fas fa-plus"></i> Add Service
+    </button>
+  </div>
+  <div class="table-wrap admin-card__table">
+    <table>
+      <thead>
+        <tr><th>Icon</th><th>Title</th><th>Price</th><th>Featured</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        {% for s in services %}
+        <tr>
+          <td><i class="{{ s.icon }}" style="font-size:1.3rem;color:var(--accent-light)"></i></td>
+          <td>
+            <div style="font-weight:500;color:var(--text-primary)">{{ s.title }}</div>
+            <div style="font-size:0.78rem;color:var(--text-muted)" class="truncate">{{ s.description[:80] }}...</div>
+          </td>
+          <td style="font-size:0.88rem">{{ s.price_range or '-' }}</td>
+          <td>
+            {% if s.is_featured %}<span class="badge badge-accent">Featured</span>
+            {% else %}<span class="badge badge-muted">No</span>{% endif %}
+          </td>
+          <td>
+            <div class="flex gap-sm">
+              <button class="btn btn-ghost btn-sm"
+                      data-edit-btn
+                      data-edit-modal="editServiceModal"
+                      data-edit-data='{{ s.to_dict() | tojson }}'>
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-sm"
+                      data-confirm-delete="{{ url_for('admin.delete_service', sid=s.id) }}"
+                      data-label="{{ s.title }}">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="5" class="text-center" style="padding:60px;color:var(--text-muted)">No services yet</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Add Service Modal -->
+<div class="modal-overlay" id="addServiceModal">
+  <div class="modal">
+    <div class="modal__header">
+      <div class="modal__title">Add New Service</div>
+      <button class="modal__close" onclick="closeModal('addServiceModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <form data-crud-form action="{{ url_for('admin.add_service') }}" method="POST">
+      {% include 'admin/_service_form.html' %}
+      <button type="submit" class="btn btn-primary">Save Service</button>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Service Modal -->
+<div class="modal-overlay" id="editServiceModal">
+  <div class="modal">
+    <div class="modal__header">
+      <div class="modal__title">Edit Service</div>
+      <button class="modal__close" onclick="closeModal('editServiceModal')"><i class="fas fa-times"></i></button>
+    </div>
+    <form data-crud-form id="editServiceForm" method="POST" action="">
+      {% include 'admin/_service_form.html' %}
+      <button type="submit" class="btn btn-primary">Update Service</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Override edit button handler to update form action URL
+document.querySelectorAll('[data-edit-btn]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const data = JSON.parse(btn.dataset.editData || '{}');
+    const form = document.getElementById('editServiceForm');
+    form.action = `/admin/services/edit/${data.id}`;
+  });
+});
+</script>
+{% endblock %}

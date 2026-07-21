@@ -1,0 +1,245 @@
+{
+  "personal_info": {
+    "name": "Krishan Sharma",
+    "primary_role": "Machine Learning Engineer",
+    "roles": [
+      "Machine Learning Engineer",
+      "Python Developer",
+      "AI/ML Engineer",
+      "Backend Developer"
+    ],
+    "location": "Jaipur, Rajasthan, India",
+    "email": "krishansharma995060@gmail.com",
+    "phone": "+91 86191 64592",
+    "linkedin": "linkedin.com/in/krishan-sharma-50a89635b",
+    "github": "github.com/krishansharma09",
+    "availability": "Currently open to full-time Python Developer / Machine Learning Engineer roles, internships, and freelance projects.",
+    "short_intro": "Results-driven Machine Learning Engineer with hands-on internship experience, specializing in AI-powered applications using Python, LangChain, RAG pipelines, and Generative AI frameworks.",
+    "bio": "Krishan Sharma is a Machine Learning Engineer based in Jaipur, India. He specializes in building AI-powered applications, NLP systems, RESTful APIs, and document intelligence solutions using LLMs and vector databases."
+  },
+  "summary": "Results-driven Machine Learning Engineer with hands-on internship experience, specializing in AI-powered applications using Python, LangChain, RAG pipelines, and Generative AI frameworks. Experienced in NLP systems, RESTful APIs, and document intelligence using LLMs and vector databases.",
+  "education": [
+    {
+      "degree": "Master of Computer Applications (MCA)",
+      "institution": "JECRC University, Sitapura, Jaipur",
+      "duration": "Aug 2025 – Present",
+      "status": "Ongoing / Currently Pursuing"
+    },
+    {
+      "degree": "Bachelor of Computer Applications (BCA)",
+      "institution": "University of Rajasthan, Jaipur",
+      "duration": "Aug 2022 – Aug 2025",
+      "status": "Completed"
+    }
+  ],
+  "work_experience": [
+    {
+      "role": "Machine Learning Engineer Intern",
+      "company": "Dotsquares Technologies Pvt. Ltd.",
+      "location": "Jagatpura, Jaipur, India",
+      "duration": "Aug 2024 – Feb 2025 (7 Months)",
+      "highlights": [
+        "Designed and deployed NLP pipelines for text classification, entity recognition, and semantic similarity — achieving 90%+ model accuracy on internal benchmarks.",
+        "Built and integrated RESTful APIs using Flask and FastAPI to serve ML inference endpoints, reducing average response latency by 35% through async processing.",
+        "Developed and fine-tuned machine learning models using Scikit-learn for business use cases including predictive analytics and document categorization.",
+        "Implemented LLM-powered features using LangChain and Gemini AI, enabling intelligent document Q&A and automated text summarization workflows.",
+        "Collaborated with cross-functional teams in an Agile environment to deliver 3 production-ready AI features within sprint timelines.",
+        "Optimized PostgreSQL database schemas and integrated FAISS vector stores for efficient similarity search across large-scale text corpora."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "AI Chatbot with Gemini + PostgreSQL + FAISS",
+      "github": "github.com/krishansharma09",
+      "overview": "Architected a production-grade conversational AI chatbot leveraging Google Gemini LLM with LangChain orchestration for multi-turn dialogue management.",
+      "tech_stack": [
+        "Python",
+        "LangChain",
+        "Gemini AI",
+        "FAISS",
+        "PostgreSQL",
+        "FastAPI"
+      ],
+      "highlights": [
+        "Multi-turn dialogue management via LangChain and Gemini AI.",
+        "Integrated FAISS vector store for sub-second semantic search over 10,000+ document embeddings.",
+        "FastAPI + PostgreSQL backend for persistent chat history, session management, and authentication.",
+        "Supported 50+ concurrent users with a 92% user satisfaction score in internal testing."
+      ]
+    },
+    {
+      "title": "RAG-Based Document Chatbot",
+      "github": "github.com/krishansharma09",
+      "overview": "Built an end-to-end Retrieval-Augmented Generation (RAG) pipeline allowing users to upload PDFs and query documents in natural language with high precision.",
+      "tech_stack": [
+        "Python",
+        "LangChain",
+        "FAISS",
+        "Streamlit",
+        "Gemini AI / OpenAI"
+      ],
+      "highlights": [
+        "PDF Q&A pipeline with document chunking, embedding generation, and FAISS vector indexing.",
+        "Reduced irrelevant context injection by 40% compared to naive prompting.",
+        "Deployed an interactive Streamlit UI for seamless document search.",
+        "Optimized prompt templates and retrieval chain logic to minimize hallucination."
+      ]
+    },
+    {
+      "title": "Binance Futures Trading Bot",
+      "github": "github.com/krishansharma09/binance-futures-trading-bot",
+      "overview": "Automated cryptocurrency futures trading bot executing real-time buy/sell orders based on custom algorithmic strategies on Binance.",
+      "tech_stack": [
+        "Python",
+        "Binance API",
+        "WebSockets",
+        "Pandas",
+        "NumPy"
+      ],
+      "highlights": [
+        "Automated crypto trading via Binance API with real-time WebSocket market data streaming.",
+        "Strategy engine using RSI, MACD, and Bollinger Bands technical indicators.",
+        "Automated risk management with Stop-Loss and Take-Profit orders.",
+        "Backtesting framework using Pandas and NumPy on historical OHLCV data."
+      ]
+    },
+    {
+      "title": "Personal Finance Dashboard",
+      "github": "github.com/krishansharma09/Personal-Finance-Dashboard",
+      "overview": "Web app enabling users to upload a bank statement CSV and instantly see auto-categorized spending insights through interactive visualizations.",
+      "tech_stack": [
+        "Python",
+        "Flask",
+        "Pandas",
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Chart.js"
+      ],
+      "highlights": [
+        "CSV bank statement upload and parsing via Pandas.",
+        "Keyword-based transaction auto-categorization.",
+        "Interactive Chart.js visualizations (pie, donut, bar, line graphs for monthly trends).",
+        "Flask + Pandas backend with sortable transactions table."
+      ]
+    }
+  ],
+  "insights": {
+    "title": "Insights & Experiments",
+    "subtitle": "Sharing what I'm building, learning and exploring.",
+    "cards": [
+      {
+        "id": "01",
+        "title": "Current Focus",
+        "description": "Building AI applications, backend systems and automation solutions using Python."
+      },
+      {
+        "id": "02",
+        "title": "Learning Journey",
+        "description": "Currently improving expertise in Machine Learning, LLMs, Cloud and scalable architecture."
+      },
+      {
+        "id": "03",
+        "title": "Coming Soon",
+        "description": "Technical articles and project breakdowns will be added soon."
+      }
+    ]
+  },
+  "skills": {
+    "languages": [
+      "Python (Advanced)",
+      "SQL",
+      "Bash",
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "ai_ml_nlp": [
+      "Machine Learning",
+      "NLP (Text Classification, Entity Recognition, Semantic Similarity)",
+      "Deep Learning",
+      "Generative AI",
+      "RAG Pipelines",
+      "LLM Integration",
+      "Prompt Engineering"
+    ],
+    "frameworks_libraries": [
+      "LangChain",
+      "Scikit-learn",
+      "TensorFlow (basics)",
+      "Hugging Face Transformers",
+      "Pandas",
+      "NumPy"
+    ],
+    "backend_apis": [
+      "FastAPI",
+      "Flask",
+      "RESTful APIs",
+      "Microservices",
+      "Async Processing",
+      "JWT Authentication",
+      "Pydantic"
+    ],
+    "databases_vector": [
+      "PostgreSQL",
+      "FAISS Vector Store",
+      "pgvector",
+      "SQLAlchemy ORM"
+    ],
+    "tools_cloud": [
+      "Streamlit",
+      "Gemini AI",
+      "OpenAI API",
+      "Git",
+      "GitHub",
+      "Docker",
+      "Postman",
+      "WebSockets"
+    ]
+  },
+  "services": [
+    {
+      "title": "Full-Stack Web Development",
+      "slug": "full-stack-web-development",
+      "description": "End-to-end web application development using modern frameworks. From API design to pixel-perfect UI.",
+      "price_inr": "₹8,000 – ₹20,000",
+      "price_usd": "$100 – $250"
+    },
+    {
+      "title": "API Development & Integration",
+      "slug": "api-development-integration",
+      "description": "RESTful and GraphQL API design, development, and third-party integration with robust documentation.",
+      "price_inr": "₹2,000 – ₹8,000",
+      "price_usd": "$25 – $100"
+    },
+    {
+      "title": "AI & Machine Learning Integration",
+      "slug": "ai-machine-learning-integration",
+      "description": "Integrate cutting-edge AI models into your product — chatbots, recommendation engines, data analysis.",
+      "price_inr": "₹4,000 – ₹16,000",
+      "price_usd": "$50 – $200"
+    },
+    {
+      "title": "Database Design & Optimization",
+      "slug": "database-design-optimization",
+      "description": "PostgreSQL, MySQL, MongoDB schema design, query optimization and migration strategies.",
+      "price_inr": "₹2,000 – ₹6,000",
+      "price_usd": "$25 – $75"
+    },
+    {
+      "title": "DevOps & Cloud Deployment",
+      "slug": "devops-cloud-deployment",
+      "description": "CI/CD pipelines, Docker, Kubernetes, AWS/GCP deployment and infrastructure as code.",
+      "price_inr": "₹3,000 – ₹10,000",
+      "price_usd": "$40 – $120"
+    },
+    {
+      "title": "Technical Consulting",
+      "slug": "technical-consulting",
+      "description": "Architecture review, code audits, performance optimization, and technology stack selection.",
+      "price_inr": "₹400/hr",
+      "price_usd": "$5/hr"
+    }
+  ]
+}

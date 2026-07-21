@@ -1,0 +1,673 @@
+{% extends "base.html" %}
+
+{% block title %}Krishan</codes> — Python Developer & AI/ML Engineer{% endblock %}
+{% block meta_description %}Python Developer & AI/ML Engineer specializing in Flask, FastAPI, Machine Learning, REST APIs, LLM Integration and intelligent automation. Intern at Dotsquares Pvt. Ltd., Jaipur.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home_refined.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/projects_showcase.css') }}" />
+{% endblock %}
+
+{% block content %}
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <canvas id="hero-particles"></canvas>
+  <div class="hero__bg">
+    <div class="hero__grid"></div>
+    <div class="hero__blob hero__blob--1"></div>
+    <div class="hero__blob hero__blob--2"></div>
+    <div class="hero__blob hero__blob--3"></div>
+    <div class="hero__scanline"></div>
+  </div>
+
+  <div class="container">
+    <div class="hero__content">
+
+      <div class="hero__badge animate-fade-up" style="font-family:var(--font-mono);letter-spacing:0.1em;">
+        <span class="dot"></span>
+        // ML ENGINEER & PYTHON DEVELOPER · JAIPUR, INDIA
+      </div>
+
+      <h1 class="hero__title animate-fade-up delay-1">
+        I build <span class="highlight">intelligent AI systems</span><br>
+        &amp; scalable Python backends
+      </h1>
+
+      <p class="hero__description animate-fade-up delay-2">
+        <span style="color:var(--accent);font-weight:600;">Python Developer</span> &amp;
+        <span style="color:var(--accent);font-weight:600;">AI/ML Engineer</span>
+        specializing in vector search, RAG architectures, FastAPI, LLM integration, and production ML pipelines.
+      </p>
+
+      <div class="hero__actions animate-fade-up delay-3">
+        <a href="{{ url_for('main.about') }}" class="btn btn-primary btn-lg" id="hero-about-btn">
+          <i class="fas fa-user-astronaut"></i> About Me
+        </a>
+        <a href="{{ url_for('projects.list_projects') }}" class="btn btn-outline btn-lg" id="hero-projects-btn">
+          <i class="fas fa-eye"></i> View Projects
+        </a>
+        <a href="{{ url_for('main.contact') }}" class="btn btn-ghost btn-lg" id="hero-contact-btn"
+           style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2);color:#F7F5F0;">
+          <i class="fas fa-envelope"></i> Contact
+        </a>
+      </div>
+
+      <div class="hero__tech animate-fade-up delay-4">
+        <span class="hero__tech-tag"><i class="fab fa-python"></i> Python</span>
+        <span class="hero__tech-tag"><i class="fas fa-flask"></i> Flask</span>
+        <span class="hero__tech-tag"><i class="fas fa-bolt"></i> FastAPI</span>
+        <span class="hero__tech-tag"><i class="fas fa-brain"></i> Machine Learning</span>
+        <span class="hero__tech-tag"><i class="fas fa-robot"></i> LLM Integration</span>
+        <span class="hero__tech-tag"><i class="fas fa-database"></i> Vector DB / FAISS</span>
+        <span class="hero__tech-tag"><i class="fas fa-database"></i> PostgreSQL</span>
+        <span class="hero__tech-tag"><i class="fab fa-aws"></i> AWS</span>
+        <span class="hero__tech-tag"><i class="fab fa-docker"></i> Docker</span>
+        <span class="hero__tech-tag"><i class="fas fa-wand-magic-sparkles"></i> Generative AI</span>
+      </div>
+
+      <div class="hero__stats animate-fade-up delay-4">
+        <div>
+          <div class="hero__stat-num counter-val" data-target="3" data-suffix="+ yrs">3+ yrs</div>
+          <div class="hero__stat-label">Learning Journey</div>
+        </div>
+        <div>
+          <div class="hero__stat-num counter-val" data-target="10" data-suffix="+">10+</div>
+          <div class="hero__stat-label">Projects Built</div>
+        </div>
+        <div>
+          <div class="hero__stat-num counter-val" data-target="7" data-suffix=" mo">7 mo</div>
+          <div class="hero__stat-label">Industry Internship</div>
+        </div>
+        <div>
+          <div class="hero__stat-num counter-val" data-target="15" data-suffix="+">15+</div>
+          <div class="hero__stat-label">Technologies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll"
+       onclick="document.getElementById('featured-project').scrollIntoView({behavior:'smooth'})"
+       id="hero-scroll-indicator">
+    <div class="hero__scroll-mouse"><div class="hero__scroll-wheel"></div></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     FEATURED PROJECTS — 2-Column Grid
+════════════════════════════════════════════════════════════ -->
+<section class="fp-section" id="featured-project">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="fp-header ks-reveal">
+      <div class="fp-overline">// 02. FEATURED PROJECTS</div>
+      <h2 class="fp-title">Featured Projects</h2>
+      <p class="fp-subtitle">Production-ready Machine Learning applications and scalable Python backend architectures.</p>
+    </div>
+
+    <!-- ── 2-Column Projects Grid ──────────────────────────── -->
+    <div class="fp-projects-grid">
+
+      <!-- Card 1: Binance Futures Trading Bot -->
+      <div class="fp-grid-card ks-reveal ks-delay-1" id="fp-card-binance"
+           onclick="openFeaturedProjectModal()"
+           role="button" tabindex="0" aria-label="View Binance Futures Trading Bot details"
+           onkeydown="if(event.key==='Enter')openFeaturedProjectModal()">
+
+        <!-- Header: Top-left icon badge & status -->
+        <div class="fp-grid-card__header">
+          <div class="fp-grid-card__icon-badge">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="fp-live-badge">
+            <span class="fp-live-dot"></span> DEPLOYED
+          </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="fp-grid-card__info">
+          <div class="fp-card__cat">// AI TRADING · AUTOMATION · PYTHON</div>
+          <h3 class="fp-card__name">Binance Futures Trading Bot</h3>
+          <p class="fp-card__desc">
+            Automated futures trading system for Binance market execution. Strategy-based
+            order management, risk automation, and scalable backend architecture.
+          </p>
+          <div class="fp-card__chips">
+            <span class="fp-chip"><i class="fab fa-python"></i> Python</span>
+            <span class="fp-chip"><i class="fas fa-plug"></i> Binance API</span>
+            <span class="fp-chip"><i class="fas fa-table"></i> Pandas</span>
+            <span class="fp-chip"><i class="fas fa-wave-square"></i> WebSockets</span>
+          </div>
+          <div class="fp-card__actions">
+            <button class="fp-btn-primary"
+                    onclick="event.stopPropagation(); openFeaturedProjectModal();"
+                    id="fp-view-btn">
+              View Details <i class="fas fa-arrow-right"></i>
+            </button>
+            <a href="https://github.com/krishansharma09/binance-futures-trading-bot"
+               target="_blank" rel="noopener"
+               class="fp-btn-gh" onclick="event.stopPropagation()" id="fp-gh-btn">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div><!-- /card 1 -->
+
+      <!-- Card 2: Personal Finance Dashboard -->
+      <div class="fp-grid-card ks-reveal ks-delay-2" id="fp-card-finance"
+           onclick="openFinanceProjectModal()"
+           role="button" tabindex="0" aria-label="View Personal Finance Dashboard details"
+           onkeydown="if(event.key==='Enter')openFinanceProjectModal()">
+
+        <!-- Header: Top-left icon badge & status -->
+        <div class="fp-grid-card__header">
+          <div class="fp-grid-card__icon-badge">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <div class="fp-live-badge">
+            <span class="fp-live-dot"></span> BUILT
+          </div>
+        </div>
+
+        <!-- Info Panel -->
+        <div class="fp-grid-card__info">
+          <div class="fp-card__cat">// FINANCE · DATA · WEB APP</div>
+          <h3 class="fp-card__name">Personal Finance Dashboard</h3>
+          <p class="fp-card__desc">
+            Upload a bank statement CSV and instantly see auto-categorized spending
+            insights — summary cards, switchable charts, and a sortable table.
+          </p>
+          <div class="fp-card__chips">
+            <span class="fp-chip"><i class="fas fa-flask"></i> Flask</span>
+            <span class="fp-chip"><i class="fas fa-table"></i> Pandas</span>
+            <span class="fp-chip"><i class="fas fa-chart-bar"></i> Chart.js</span>
+            <span class="fp-chip"><i class="fab fa-html5"></i> HTML/CSS/JS</span>
+          </div>
+          <div class="fp-card__actions">
+            <button class="fp-btn-primary"
+                    onclick="event.stopPropagation(); openFinanceProjectModal();"
+                    id="fp-view-finance-btn">
+              View Details <i class="fas fa-arrow-right"></i>
+            </button>
+            <a href="https://github.com/krishansharma09/Personal-Finance-Dashboard"
+               target="_blank" rel="noopener"
+               class="fp-btn-gh" onclick="event.stopPropagation()" id="fp-gh-finance-btn">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+          </div>
+        </div>
+      </div><!-- /card 2 -->
+
+    </div><!-- /.fp-projects-grid -->
+
+  </div>
+</section>
+
+
+
+
+
+
+<!-- ════════════════════════════════════════════════════════════
+     COLLABORATE SECTION
+════════════════════════════════════════════════════════════ -->
+<section class="collab-section" id="collaborate">
+  <!-- Animated blobs -->
+  <div class="collab-blob collab-blob--1" aria-hidden="true"></div>
+  <div class="collab-blob collab-blob--2" aria-hidden="true"></div>
+  <div class="collab-blob collab-blob--3" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="collab-grid">
+
+      <!-- Left: Text -->
+      <div class="ks-reveal">
+        <div class="collab-overline" style="font-family:var(--font-mono);letter-spacing:0.12em;">// 06. CONTACT & COLLABORATION</div>
+        <h2 class="collab-title">
+          Let's Build Something<br>
+          <span class="highlight">Intelligent</span>
+        </h2>
+        <p class="collab-desc">
+          Open to collaboration, innovative ideas, AI products and development opportunities.
+          Let's create something intelligent that makes a difference.
+        </p>
+        <div class="collab-actions">
+          <a href="{{ url_for('main.contact') }}" class="ks-btn-primary" id="collab-contact-btn">
+            <i class="fas fa-comments"></i> Start a Conversation
+          </a>
+          <a href="{{ url_for('projects.list_projects') }}" class="ks-btn-outline" id="collab-projects-btn">
+            <i class="fas fa-eye"></i> Explore My Work
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Info card -->
+      <div class="ks-reveal ks-delay-2">
+        <div class="collab-card">
+          <div class="hire-me-avatar" style="width:120px;height:120px;margin:0 auto 16px;">
+            <img src="{{ url_for('static', filename='assets/profile.jpg') }}" alt="Krishan Sharma — Python & AI/ML Developer" />
+          </div>
+
+          <div class="collab-available">
+            <span class="collab-avail-dot"></span>
+            Currently open to new opportunities
+          </div>
+
+          <div class="collab-info-row">
+            <div class="collab-info-icon"><i class="fas fa-bolt"></i></div>
+            <div>
+              <div class="collab-info-label">Response Time</div>
+              <div class="collab-info-value">Within 24 hours</div>
+            </div>
+          </div>
+
+          <div class="collab-info-row">
+            <div class="collab-info-icon"><i class="fas fa-code"></i></div>
+            <div>
+              <div class="collab-info-label">Specialization</div>
+              <div class="collab-info-value">Python · AI/ML · Backend APIs</div>
+            </div>
+          </div>
+
+          <div class="collab-info-row">
+            <div class="collab-info-icon"><i class="fas fa-location-dot"></i></div>
+            <div>
+              <div class="collab-info-label">Location</div>
+              <div class="collab-info-value">Jaipur, Rajasthan, India</div>
+            </div>
+          </div>
+
+          <div class="collab-info-row">
+            <div class="collab-info-icon" style="color:var(--accent-2);background:rgba(0,229,255,0.08);border-color:rgba(0,229,255,0.15);"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div class="collab-info-label">Email</div>
+              <div class="collab-info-value" style="font-size:0.82rem;">krishansharma995060@gmail.com</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     FEATURED PROJECT MODAL (fullscreen detail view)
+════════════════════════════════════════════════════════════ -->
+<div id="fpModal" class="pj-modal-overlay" role="dialog" aria-modal="true" aria-label="Project Details">
+  <div class="pj-modal" id="fpModalInner">
+
+    <button class="pj-modal__close" onclick="closeFeaturedModal()" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <!-- Hero Banner -->
+    <div class="pj-modal-hero">
+      <img class="pj-modal-hero__img"
+           src="{{ url_for('static', filename='uploads/trading_bot_banner.png') }}"
+           alt="Binance Futures Trading Bot" />
+      <div class="pj-modal-hero__overlay"></div>
+
+      <div class="pj-modal-hero__float-icons" aria-hidden="true">
+        <i class="pj-banner-icon fas fa-chart-line" style="top:22%;left:5%;"></i>
+        <i class="pj-banner-icon fas fa-robot" style="top:62%;left:14%;color:var(--accent-2);"></i>
+        <i class="pj-banner-icon fas fa-bolt" style="top:32%;right:10%;"></i>
+        <i class="pj-banner-icon fab fa-python" style="top:72%;right:18%;"></i>
+        <i class="pj-banner-icon fas fa-coins" style="top:48%;left:42%;"></i>
+      </div>
+
+      <div class="pj-modal-hero__content">
+        <div class="pj-modal-hero__badges">
+          <span class="pj-live-badge"><span class="pj-live-badge__dot"></span> DEPLOYED</span>
+          <span class="pj-cat-badge">AI Trading / Automation / Python</span>
+        </div>
+        <h2 class="pj-modal-hero__title">Binance Futures Trading Bot</h2>
+        <p class="pj-modal-hero__tagline">
+          "Automated futures trading with intelligent execution and real-time market integration."
+        </p>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="pj-modal-body">
+
+      <!-- Main Column -->
+      <div class="pj-modal-main">
+
+        <!-- Overview -->
+        <div class="pj-section">
+          <div class="pj-section-label">01 Overview</div>
+          <p class="pj-overview-text">
+            Binance Futures Trading Bot is an automated trading system designed for futures market execution.
+            It enables strategy-based order management, automation workflows, and scalable backend architecture
+            for handling market interactions efficiently.
+          </p>
+          <p class="pj-overview-text" style="margin-top:12px;">
+            The bot interfaces directly with Binance's Futures API, enabling real-time data fetching,
+            intelligent order placement, and position management. The architecture is modular and extensible —
+            designed to support multiple trading strategies without rewriting the core execution engine.
+          </p>
+        </div>
+
+        <!-- Features -->
+        <div class="pj-section">
+          <div class="pj-section-label">02 Key Features</div>
+          <div class="pj-features-list" id="fp-features-list">
+            {% set features = [
+              'Automated trade execution',
+              'Futures market integration',
+              'Strategy-based architecture',
+              'Scalable backend',
+              'Deployment ready',
+              'Secure workflow'
+            ] %}
+            {% for feat in features %}
+            <div class="pj-feature-item" style="--delay:{{ loop.index0 * 0.08 }}s">
+              <div class="pj-feature-check">
+                <svg viewBox="0 0 12 12">
+                  <polyline class="check-path" style="--delay:{{ 0.3 + loop.index0 * 0.08 }}s" points="1.5,6 5,9.5 10.5,2.5"/>
+                </svg>
+              </div>
+              <span>{{ feat }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="pj-section">
+          <div class="pj-section-label">03 Tech Stack</div>
+          <div class="pj-modal-chips">
+            <span class="pj-modal-chip pj-modal-chip--backend" style="transition-delay:0s"><i class="fab fa-python"></i> Python</span>
+            <span class="pj-modal-chip pj-modal-chip--api"     style="transition-delay:0.07s"><i class="fas fa-plug"></i> REST APIs</span>
+            <span class="pj-modal-chip pj-modal-chip--db"      style="transition-delay:0.14s"><i class="fas fa-database"></i> PostgreSQL</span>
+            <span class="pj-modal-chip pj-modal-chip--deploy"  style="transition-delay:0.21s"><i class="fas fa-cloud"></i> Cloud Ready</span>
+            <span class="pj-modal-chip pj-modal-chip--vcs"     style="transition-delay:0.28s"><i class="fab fa-github"></i> Git + GitHub</span>
+          </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="pj-section">
+          <div class="pj-section-label">04 Architecture</div>
+          <div class="pj-arch-timeline">
+            {% set arch_steps = [
+              ('fas fa-lightbulb', 'Idea', 'Problem definition, strategy planning, and API feasibility study.'),
+              ('fas fa-code', 'Development', 'Modular Python backend with REST API integration and strategy engine.'),
+              ('fas fa-vial', 'Testing', 'Sandbox testing on Binance Testnet with simulated market conditions.'),
+              ('fas fa-rocket', 'Deployment', 'Cloud-deployed with environment-based config and secure key management.')
+            ] %}
+            {% for icon, title, desc in arch_steps %}
+            <div class="pj-arch-step" style="--delay:{{ loop.index0 * 0.1 }}s">
+              <div class="pj-arch-step__left">
+                <div class="pj-arch-dot"><i class="{{ icon }}"></i></div>
+                <div class="pj-arch-line"></div>
+              </div>
+              <div class="pj-arch-card">
+                <div class="pj-arch-card__title">{{ title }}</div>
+                <div class="pj-arch-card__desc">{{ desc }}</div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="pj-modal-sidebar">
+        <div class="pj-section">
+          <div class="pj-section-label">Project Stats</div>
+          <div class="pj-stats-grid">
+            <div class="pj-stat-card"><div class="pj-stat-card__label">Status</div><div class="pj-stat-card__value">Live ✅</div></div>
+            <div class="pj-stat-card"><div class="pj-stat-card__label">Type</div><div class="pj-stat-card__value">Automation</div></div>
+            <div class="pj-stat-card"><div class="pj-stat-card__label">Category</div><div class="pj-stat-card__value">Trading Bot</div></div>
+            <div class="pj-stat-card"><div class="pj-stat-card__label">Developer</div><div class="pj-stat-card__value">Krishan Sharma</div></div>
+          </div>
+        </div>
+
+        <div class="pj-modal-actions">
+          <button class="pj-modal-btn-primary" disabled style="opacity:0.45;cursor:not-allowed;">
+            <i class="fas fa-external-link-alt"></i> Live Demo (Soon)
+          </button>
+          <a href="https://github.com/krishansharma09/binance-futures-trading-bot"
+             target="_blank" rel="noopener"
+             class="pj-modal-btn-secondary" id="fp-modal-gh-btn">
+            <i class="fab fa-github"></i> GitHub Repository
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════
+     FINANCE DASHBOARD MODAL
+════════════════════════════════════════════════════════════ -->
+<div id="fpModalFinance" class="pj-modal-overlay" role="dialog" aria-modal="true" aria-label="Finance Dashboard Details">
+  <div class="pj-modal" id="fpModalFinanceInner">
+
+    <button class="pj-modal__close" onclick="closeFinanceModal()" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <!-- Hero Banner -->
+    <div class="pj-modal-hero" style="background: linear-gradient(135deg, rgba(0,229,255,0.18) 0%, rgba(0,180,200,0.08) 100%); border-bottom: 1px solid rgba(0,229,255,0.18);">
+      <div class="pj-modal-hero__overlay" style="background: linear-gradient(to bottom, rgba(0,229,255,0.04), rgba(10,10,20,0.85));"></div>
+
+      <div class="pj-modal-hero__float-icons" aria-hidden="true">
+        <i class="pj-banner-icon fas fa-chart-pie" style="top:22%;left:5%;color:var(--accent-2);"></i>
+        <i class="pj-banner-icon fas fa-file-csv" style="top:62%;left:14%;"></i>
+        <i class="pj-banner-icon fas fa-chart-bar" style="top:32%;right:10%;color:var(--accent-2);"></i>
+        <i class="pj-banner-icon fas fa-table" style="top:72%;right:18%;"></i>
+        <i class="pj-banner-icon fas fa-wallet" style="top:48%;left:42%;color:var(--accent-2);"></i>
+      </div>
+
+      <div class="pj-modal-hero__content">
+        <div class="pj-modal-hero__badges">
+          <span class="pj-live-badge" style="background:rgba(0,229,255,0.12);border-color:rgba(0,229,255,0.3);color:var(--accent-2);"><span class="pj-live-badge__dot" style="background:var(--accent-2);"></span> BUILT</span>
+          <span class="pj-cat-badge" style="border-color:rgba(0,229,255,0.2);color:var(--accent-2);">Finance / Data / Web App</span>
+        </div>
+        <h2 class="pj-modal-hero__title" style="color:var(--accent-2);">Personal Finance Dashboard</h2>
+        <p class="pj-modal-hero__tagline">
+          "Upload a bank CSV and instantly see intelligent spending insights — charts, summaries, and sortable tables."
+        </p>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="pj-modal-body">
+
+      <!-- Main Column -->
+      <div class="pj-modal-main">
+
+        <!-- Overview -->
+        <div class="pj-section">
+          <div class="pj-section-label" style="color:var(--accent-2);">01 Overview</div>
+          <p class="pj-overview-text">
+            Personal Finance Dashboard is a full-stack web application that transforms raw bank statement CSV files
+            into actionable financial insights. Simply upload your exported CSV and the app auto-categorizes
+            your transactions using keyword-based logic.
+          </p>
+          <p class="pj-overview-text" style="margin-top:12px;">
+            The dashboard presents summary cards for total income, total expenses, and net savings,
+            paired with switchable chart types (bar, pie, line) powered by Chart.js, and a fully
+            sortable and filterable transactions table — all built with a clean Flask + Pandas backend.
+          </p>
+        </div>
+
+        <!-- Features -->
+        <div class="pj-section">
+          <div class="pj-section-label" style="color:var(--accent-2);">02 Key Features</div>
+          <div class="pj-features-list" id="fp-finance-features-list">
+            {% set finance_features = [
+              'CSV bank statement upload',
+              'Keyword-based auto-categorization',
+              'Income / Expenses / Savings summary cards',
+              'Switchable chart types (Bar, Pie, Line)',
+              'Sortable & filterable transactions table',
+              'Responsive, clean UI'
+            ] %}
+            {% for feat in finance_features %}
+            <div class="pj-feature-item pj-finance-item" style="--delay:{{ loop.index0 * 0.08 }}s">
+              <div class="pj-feature-check" style="background:rgba(0,229,255,0.12);border-color:rgba(0,229,255,0.3);">
+                <svg viewBox="0 0 12 12">
+                  <polyline class="check-path" style="--delay:{{ 0.3 + loop.index0 * 0.08 }}s;stroke:var(--accent-2);" points="1.5,6 5,9.5 10.5,2.5"/>
+                </svg>
+              </div>
+              <span>{{ feat }}</span>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="pj-section">
+          <div class="pj-section-label" style="color:var(--accent-2);">03 Tech Stack</div>
+          <div class="pj-modal-chips">
+            <span class="pj-modal-chip pj-modal-chip--backend" style="transition-delay:0s;border-color:rgba(0,229,255,0.2);color:var(--accent-2);"><i class="fas fa-flask"></i> Flask</span>
+            <span class="pj-modal-chip pj-modal-chip--api"     style="transition-delay:0.07s;border-color:rgba(0,229,255,0.2);color:var(--accent-2);"><i class="fas fa-table"></i> Pandas</span>
+            <span class="pj-modal-chip pj-modal-chip--db"      style="transition-delay:0.14s;border-color:rgba(0,229,255,0.2);color:var(--accent-2);"><i class="fas fa-chart-bar"></i> Chart.js</span>
+            <span class="pj-modal-chip pj-modal-chip--deploy"  style="transition-delay:0.21s;border-color:rgba(0,229,255,0.2);color:var(--accent-2);"><i class="fab fa-html5"></i> HTML/CSS/JS</span>
+            <span class="pj-modal-chip pj-modal-chip--vcs"     style="transition-delay:0.28s;border-color:rgba(0,229,255,0.2);color:var(--accent-2);"><i class="fas fa-file-csv"></i> CSV Upload</span>
+          </div>
+        </div>
+
+        <!-- Architecture -->
+        <div class="pj-section">
+          <div class="pj-section-label" style="color:var(--accent-2);">04 Architecture</div>
+          <div class="pj-arch-timeline">
+            {% set finance_arch = [
+              ('fas fa-upload', 'CSV Upload', 'User uploads a bank statement CSV through the Flask web interface.'),
+              ('fas fa-tags', 'Categorization', 'Pandas processes and keyword-matches each transaction to a spending category.'),
+              ('fas fa-chart-pie', 'Visualization', 'Chart.js renders switchable charts; summary cards show income/expenses/savings.'),
+              ('fas fa-table', 'Table View', 'A sortable, filterable transactions table lets users drill into any category.')
+            ] %}
+            {% for icon, title, desc in finance_arch %}
+            <div class="pj-arch-step pj-finance-arch" style="--delay:{{ loop.index0 * 0.1 }}s">
+              <div class="pj-arch-step__left">
+                <div class="pj-arch-dot" style="background:rgba(0,229,255,0.12);border-color:rgba(0,229,255,0.3);color:var(--accent-2);"><i class="{{ icon }}"></i></div>
+                <div class="pj-arch-line" style="background:rgba(0,229,255,0.15);"></div>
+              </div>
+              <div class="pj-arch-card" style="border-color:rgba(0,229,255,0.12);">
+                <div class="pj-arch-card__title" style="color:var(--accent-2);">{{ title }}</div>
+                <div class="pj-arch-card__desc">{{ desc }}</div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="pj-modal-sidebar">
+        <div class="pj-section">
+          <div class="pj-section-label" style="color:var(--accent-2);">Project Stats</div>
+          <div class="pj-stats-grid">
+            <div class="pj-stat-card" style="border-color:rgba(0,229,255,0.12);"><div class="pj-stat-card__label">Status</div><div class="pj-stat-card__value" style="color:var(--accent-2);">Built ✅</div></div>
+            <div class="pj-stat-card" style="border-color:rgba(0,229,255,0.12);"><div class="pj-stat-card__label">Type</div><div class="pj-stat-card__value">Web App</div></div>
+            <div class="pj-stat-card" style="border-color:rgba(0,229,255,0.12);"><div class="pj-stat-card__label">Category</div><div class="pj-stat-card__value">Finance / Data</div></div>
+            <div class="pj-stat-card" style="border-color:rgba(0,229,255,0.12);"><div class="pj-stat-card__label">Developer</div><div class="pj-stat-card__value">Krishan Sharma</div></div>
+          </div>
+        </div>
+
+        <div class="pj-modal-actions">
+          <button class="pj-modal-btn-primary" disabled style="opacity:0.45;cursor:not-allowed;background:rgba(0,229,255,0.1);border-color:rgba(0,229,255,0.3);color:var(--accent-2);">
+            <i class="fas fa-external-link-alt"></i> Live Demo (Soon)
+          </button>
+          <a href="https://github.com/krishansharma09/Personal-Finance-Dashboard"
+             target="_blank" rel="noopener"
+             class="pj-modal-btn-secondary" id="fp-modal-finance-gh-btn"
+             style="border-color:rgba(0,229,255,0.2);color:var(--accent-2);">
+            <i class="fab fa-github"></i> GitHub Repository
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+/* ── Featured Project Modal ── */
+function openFeaturedProjectModal() {
+  const overlay = document.getElementById('fpModal');
+  overlay.classList.add('pj-modal--open');
+  document.body.style.overflow = 'hidden';
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      overlay.querySelectorAll('.pj-feature-item').forEach(el => el.classList.add('pj-visible'));
+      overlay.querySelectorAll('.pj-modal-chip').forEach(el => el.classList.add('pj-visible'));
+      overlay.querySelectorAll('.pj-arch-step').forEach(el => el.classList.add('pj-visible'));
+    });
+  });
+}
+
+function closeFeaturedModal() {
+  document.getElementById('fpModal').classList.remove('pj-modal--open');
+  document.body.style.overflow = '';
+}
+
+/* ── Finance Dashboard Modal ── */
+function openFinanceProjectModal() {
+  const overlay = document.getElementById('fpModalFinance');
+  overlay.classList.add('pj-modal--open');
+  document.body.style.overflow = 'hidden';
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      overlay.querySelectorAll('.pj-finance-item').forEach(el => el.classList.add('pj-visible'));
+      overlay.querySelectorAll('.pj-modal-chip').forEach(el => el.classList.add('pj-visible'));
+      overlay.querySelectorAll('.pj-finance-arch').forEach(el => el.classList.add('pj-visible'));
+    });
+  });
+}
+
+function closeFinanceModal() {
+  document.getElementById('fpModalFinance').classList.remove('pj-modal--open');
+  document.body.style.overflow = '';
+}
+
+/* Close on overlay click */
+document.getElementById('fpModal').addEventListener('click', function(e) {
+  if (e.target === this) closeFeaturedModal();
+});
+document.getElementById('fpModalFinance').addEventListener('click', function(e) {
+  if (e.target === this) closeFinanceModal();
+});
+
+/* Escape key closes whichever modal is open */
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeFeaturedModal();
+    closeFinanceModal();
+  }
+});
+
+/* Spotlight tracking on all grid cards */
+(function() {
+  document.querySelectorAll('.fp-grid-card').forEach(function(card) {
+    card.addEventListener('mousemove', function(e) {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+})();
+</script>
+{% endblock %}

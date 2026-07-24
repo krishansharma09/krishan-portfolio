@@ -1327,23 +1327,60 @@ tr:hover td { background: var(--bg-card); }
 }
 
 /* ============================================================
-   GLOBAL MOBILE CONTAINMENT & OVERFLOW PROTECTION
+   GLOBAL MOBILE CONTAINMENT & SYMMETRIC SPACING PROTECTION
 ============================================================ */
+.container {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  box-sizing: border-box !important;
+}
+
 @media (max-width: 768px) {
-  /* Enforce Single Column Grid Layouts */
+  .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Enforce Single Column Grid Layouts & Override Inline Template Grids */
+  div[style*="display:grid"], div[style*="display: grid"],
   .grid, .grid-2, .grid-3, .grid-4,
   .fp-projects-grid, .ks-about-hero__inner, .ks-counters-grid,
   .ks-skills-grid, .ks-about-projects-grid, .ai-projects-grid,
-  .cp-grid, #pjShowcaseGrid {
+  .cp-grid, #pjShowcaseGrid, .ins-grid, .collab-grid {
     grid-template-columns: 1fr !important;
     width: 100% !important;
     max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Symmetric Card Margins */
+  .card, .fp-grid-card, .ks-profile-card, .ks-skill-card, .ks-about-proj-card,
+  .ai-project-card, .service-card, .cp-card, .pj-feature-card, .pj-coming-soon-card,
+  .ks-counter-card, .ins-card, article.ks-skill-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     box-sizing: border-box !important;
   }
 
   /* Contain background glow blobs to document boundaries */
   .hero__blob, .ks-blob, .cp-bg-blob, .collab-blob, .pj-hero__blob {
     right: 0 !important;
+    left: 0 !important;
     max-width: 100% !important;
     overflow: hidden !important;
   }

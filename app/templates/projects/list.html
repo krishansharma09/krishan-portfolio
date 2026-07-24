@@ -53,7 +53,7 @@
           </h2>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;">
+        <div class="grid grid-3">
           {% for project in projects %}
           <article class="ks-skill-card ks-reveal" style="padding:28px;cursor:pointer;"
                    onclick="window.location='{{ url_for('projects.project_detail', slug=project.slug) }}'">

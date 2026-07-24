@@ -55,10 +55,22 @@
 /* ── Project Cards Grid ─────────────────────────────── */
 .fp-projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
   max-width: 1100px;
   margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .fp-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .fp-grid-card {
+    padding: 24px 18px;
+  }
 }
 
 .fp-grid-card {
@@ -1268,17 +1280,7 @@
 }
 
 /* Responsive footer */
-@media (max-width: 860px) {
-  .kfooter__body {
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-  }
-  .kfooter__brand-col {
-    grid-column: 1 / -1;
-  }
-}
-
-@media (max-width: 560px) {
+@media (max-width: 768px) {
   .kfooter {
     padding-top: 60px;
   }
@@ -1286,10 +1288,13 @@
     grid-template-columns: 1fr;
     gap: 32px;
   }
+  .kfooter__brand-col {
+    grid-column: 1 / -1;
+  }
   .kfooter__bottom {
     flex-direction: column;
     text-align: center;
-    gap: 8px;
+    gap: 12px;
   }
 }
 

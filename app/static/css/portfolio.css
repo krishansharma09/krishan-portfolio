@@ -116,10 +116,10 @@ body.cursor-active #cursor-glow {
   padding-bottom: 96px;
 }
 
-/* Responsive grid: fluid columns, min 340 px each */
+/* Responsive grid: fluid columns, min 280 px each */
 .ai-projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
 }
 
@@ -1252,10 +1252,10 @@ body.cursor-active #cursor-glow {
 ============================================================ */
 
 /* ── Tablet / small desktop ──────────────────────────────── */
-@media (max-width: 900px) {
-  /* Project grid drops to smaller minimum column width */
+@media (max-width: 768px) {
+  /* Project grid drops to single column layout */
   .ai-projects-grid {
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: 1fr;
   }
 
   /* Modal body padding tightens */

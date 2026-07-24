@@ -1803,7 +1803,7 @@
 }
 
 /* ── Responsive ───────────────────────────────────────────── */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .ks-about-projects-grid {
     grid-template-columns: 1fr;
   }

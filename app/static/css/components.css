@@ -164,8 +164,14 @@
 }
 
 @media (max-width: 900px) {
-  .navbar__links { display: none; }
-  .navbar__hamburger { display: flex; }
+  .navbar__links { display: none !important; }
+  .navbar__hamburger { display: flex !important; }
+}
+
+@media (max-width: 600px) {
+  .navbar__actions .btn { display: none; }
+  .navbar__actions .theme-toggle,
+  .navbar__actions .navbar__hamburger { display: flex !important; }
 }
 
 /* ── Hero Section ──────────────────────────────────────────── */
@@ -349,6 +355,19 @@
   flex-wrap: wrap;
   margin-bottom: var(--space-2xl);
   align-items: center;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#hero-contact-btn {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-hover, #2B78C5);
+  color: var(--text-primary);
+}
+#hero-contact-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 /* Tech stack strip */
@@ -419,9 +438,26 @@
   .hero__badge { font-size: 0.72rem; }
   .hero__scroll { display: none; }
 }
+@media (max-width: 768px) {
+  .hero__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    gap: 12px;
+  }
+  .hero__actions .btn {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+}
 @media (max-width: 600px) {
-  .hero__actions { flex-direction: column; align-items: stretch; width: 100%; }
-  .hero__actions .btn { width: 100%; justify-content: center; }
   .hero__stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
 }
 
@@ -1254,89 +1290,7 @@
 .ks-skill-card[data-cat] .ks-skill-tag { background: #DDECF8 !important; border-color: #B8D6F0 !important; color: #1A5EA8 !important; }
 .ks-skill-card[data-cat] .ks-skill-tag:hover { background: #2B78C5 !important; border-color: #2B78C5 !important; color: #FFFFFF !important; }
 
-/* ── Navbar ──────────────────────────────────────────── */
-.navbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 1000;
-  padding: 18px 0;
-  transition: all var(--transition);
-}
-.navbar.scrolled {
-  background: rgba(247,245,240,0.94);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  padding: 12px 0;
-  box-shadow: 0 4px 20px rgba(22,23,27,0.06);
-}
-.navbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-lg);
-}
-.navbar__logo {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  flex-shrink: 0;
-  letter-spacing: -0.01em;
-}
-.navbar__logo span {
-  font-family: var(--font-mono);
-  font-size: 0.85em;
-  color: var(--accent);
-  margin-left: 2px;
-}
-.navbar__links {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-}
-.navbar__link {
-  font-size: 0.88rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  padding: 6px 12px;
-  position: relative;
-  transition: color var(--transition);
-  border-radius: var(--radius-sm);
-}
-.navbar__link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px; left: 50%;
-  transform: translateX(-50%);
-  width: 0%; height: 2px;
-  background: var(--accent);
-  border-radius: 2px;
-  transition: width var(--transition);
-}
-.navbar__link:hover, .navbar__link.active {
-  color: var(--accent);
-}
-.navbar__link:hover::after, .navbar__link.active::after { width: 60%; }
 
-.navbar__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-/* Notification badge */
-.notif-badge {
-  position: relative;
-}
-.notif-badge__count {
-  position: absolute;
-  top: -6px; right: -6px;
-  min-width: 18px;
-  height: 18px;
-  background: var(--danger);
-  color: #fff;
-}
 
 /* ── Krishan AI Chatbot Widget ─────────────────────────────── */
 .chat-widget {

@@ -10,6 +10,9 @@
   top: 0; left: 0; right: 0;
   z-index: 1000;
   padding: 18px 0;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
   transition: all var(--transition);
 }
 .navbar.scrolled {
@@ -25,6 +28,9 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-lg);
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 .navbar__logo {
   font-family: var(--font-mono);
@@ -1898,8 +1904,8 @@ input[type="range"]::-webkit-slider-thumb {
 
 .lightbox-close {
   position: absolute;
-  top: -18px;
-  right: -18px;
+  top: 12px;
+  right: 12px;
   width: 44px;
   height: 44px;
   border-radius: 50%;

@@ -110,15 +110,21 @@
 }
 
 /* ── Reset & Base ───────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after {
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+}
 
-html {
+html, body {
   scroll-behavior: smooth;
   font-size: 16px;
   transition: background-color 0.35s ease, color 0.35s ease;
-  width: 100%;
-  max-width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   overflow-x: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 body {
@@ -126,17 +132,29 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  transition: background var(--transition), color var(--transition);
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden !important;
 }
 
-#main-content, .hero, .ks-about-hero, .pj-hero, .cp-hero, .fp-section, .cs-section, .kfooter {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
+#main-content, main, section, footer, nav, header,
+.hero, .ks-about-hero, .pj-hero, .cp-hero, .fp-section, .cs-section, .kfooter {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Global Card & Button Containment */
+.card, .fp-grid-card, .ks-profile-card, .ks-skill-card, .ks-about-proj-card,
+.ai-project-card, .service-card, .cp-card, .pj-feature-card, .pj-coming-soon-card, .ks-counter-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.btn, .fp-btn-primary, .fp-btn-gh, .ks-btn-primary, .ks-btn-outline,
+.ks-about-proj-gh-btn, .project-modal__btn-primary, .project-modal__btn-secondary,
+.ks-resume-dl-btn, .ks-btn-ghost {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 
 a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
@@ -1306,5 +1324,35 @@ tr:hover td { background: var(--bg-card); }
   background: rgba(8, 145, 178, 0.08) !important;
   border-color: rgba(8, 145, 178, 0.25) !important;
   color: #0891b2 !important;
+}
+
+/* ============================================================
+   GLOBAL MOBILE CONTAINMENT & OVERFLOW PROTECTION
+============================================================ */
+@media (max-width: 768px) {
+  /* Enforce Single Column Grid Layouts */
+  .grid, .grid-2, .grid-3, .grid-4,
+  .fp-projects-grid, .ks-about-hero__inner, .ks-counters-grid,
+  .ks-skills-grid, .ks-about-projects-grid, .ai-projects-grid,
+  .cp-grid, #pjShowcaseGrid {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Contain background glow blobs to document boundaries */
+  .hero__blob, .ks-blob, .cp-bg-blob, .collab-blob, .pj-hero__blob {
+    right: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* Form & Input Containment */
+  input, textarea, select, form, .form-group, .form-row, .cp-field {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
 }
 

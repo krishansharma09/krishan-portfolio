@@ -169,6 +169,8 @@
 }
 
 @media (max-width: 600px) {
+  .navbar__inner { gap: 8px; }
+  .navbar__actions { gap: 6px; }
   .navbar__actions .btn { display: none; }
   .navbar__actions .theme-toggle,
   .navbar__actions .navbar__hamburger { display: flex !important; }
@@ -1561,7 +1563,7 @@
     left: 12px;
     right: 12px;
     width: auto;
-    max-width: calc(100vw - 24px);
+    max-width: calc(100% - 24px);
     max-height: 75vh;
     z-index: 10002;
     transform-origin: bottom center;

@@ -46,7 +46,7 @@
   filter: blur(80px);
   animation: blob-pulse 8s ease-in-out infinite alternate;
   pointer-events: none;
-  max-width: 100vw;
+  max-width: 100%;
 }
 
 .ks-blob--1 {

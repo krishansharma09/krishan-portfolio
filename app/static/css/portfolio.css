@@ -824,7 +824,7 @@ body.cursor-active #cursor-glow {
 .portfolio-ai__panel {
   /* Size */
   width: 520px;
-  max-width: calc(100vw - 32px);
+  max-width: calc(100% - 32px);
   max-height: 82vh;
   /* Solid readable background */
   background: #0e120e;
